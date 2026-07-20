@@ -4,9 +4,15 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  // @ts-ignore – nitro is passed through to Nitro bundler
+  nitro: {
+    preset: process.env.VERCEL ? "vercel" : "node",
+  },
   plugins: [
     tanstackStart({
-      server: { entry: "server" },
+      server: {
+        entry: "server",
+      },
     }),
     react(),
     tailwindcss(),
