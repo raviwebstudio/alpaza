@@ -41,7 +41,7 @@ export const appConfig = {
   seoTitle,
   seoDescription,
   ogImage: "/og-image.jpg",
-  instagramHandle: "@alpaza.wear",
+  instagramHandle: "alpaza.wear",
   seoKeywords:
     "ALPAZA, luxury clothing, minimal fashion, athleisure, premium essentials, made for the move, coming soon",
 } as const;
