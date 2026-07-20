@@ -3,6 +3,11 @@
   "outputDirectory": "dist/client",
   "installCommand": "npm install",
   "framework": null,
+  "functions": {
+    "api/server.js": {
+      "includeFiles": "dist/server/**"
+    }
+  },
   "routes": [
     {
       "src": "/assets/(.*)",
