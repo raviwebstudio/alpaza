@@ -25,18 +25,27 @@ import tee3 from "@/assets/tee-3.jpg";
 import tee4 from "@/assets/tee-4.jpg";
 import fabricImg from "@/assets/fabric.jpg";
 import { useReveal } from "@/hooks/use-reveal";
+import { appConfig } from "@/lib/config";
 
-const INSTAGRAM_URL = "https://www.instagram.com/alpaza.wear/";
-const WHATSAPP_URL =
-  "https://wa.me/919259880496?text=Hi%20ALPAZA%2C%20I%27d%20like%20to%20place%20an%20order.";
+const {
+  brandName,
+  tagline,
+  instagramUrl,
+  whatsappUrl,
+  phoneNumber,
+  displayPhoneNumber,
+  location,
+  siteUrl,
+  seoKeywords,
+  instagramHandle,
+} = appConfig;
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
         name: "keywords",
-        content:
-          "ALPAZA, luxury clothing, minimal fashion, athleisure, premium essentials, made for the move, coming soon",
+        content: seoKeywords,
       },
     ],
     scripts: [
@@ -45,10 +54,15 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "ALPAZA",
-          slogan: "Made for the Move.",
-          url: "/",
-          sameAs: [INSTAGRAM_URL],
+          name: brandName,
+          slogan: `${tagline}.`,
+          url: siteUrl,
+          sameAs: [instagramUrl],
+          contactPoint: {
+            "@type": "ContactPoint",
+            telephone: phoneNumber,
+            contactType: "customer service",
+          },
         }),
       },
     ],
@@ -126,7 +140,7 @@ function Nav() {
           href="#top"
           className="font-display text-xl tracking-[0.35em] sm:text-2xl"
         >
-          ALPAZA
+          {brandName}
         </a>
         <nav className="hidden justify-center gap-9 text-sm text-muted-foreground md:flex">
           {links.map(([label, href]) => (
@@ -141,8 +155,8 @@ function Nav() {
         </nav>
         <div className="flex items-center gap-2">
           <a
-            href={INSTAGRAM_URL}
-            aria-label="ALPAZA on Instagram"
+            href={instagramUrl}
+            aria-label={`${brandName} on Instagram`}
             target="_blank"
             rel="noopener noreferrer"
             className="grid h-9 w-9 place-items-center rounded-full border border-border transition-colors hover:bg-foreground hover:text-background"
@@ -150,7 +164,7 @@ function Nav() {
             <Instagram className="h-4 w-4" />
           </a>
           <a
-            href={WHATSAPP_URL}
+            href={whatsappUrl}
             aria-label="Order via WhatsApp"
             target="_blank"
             rel="noopener noreferrer"
@@ -170,7 +184,7 @@ function Nav() {
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden bg-background">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:px-10 lg:pb-32 lg:pt-24">
+      <div className="hero-section mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:px-10 lg:pb-32 lg:pt-24">
         <div className="flex flex-col justify-center">
           <span className="eyebrow mb-6 inline-flex items-center gap-2">
             <span className="inline-block h-px w-8 bg-foreground/50" />
@@ -182,14 +196,14 @@ function Hero() {
             <span className="italic text-muted-foreground">the Move.</span>
           </h1>
           <p className="mt-8 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
-            ALPAZA is a minimal luxury label engineered around motion — refined
-            silhouettes, considered fabrics, and pieces built to move with you,
-            not against you.
+            {brandName} is a minimal luxury label engineered around motion —
+            refined silhouettes, considered fabrics, and pieces built to move
+            with you, not against you.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
-              href={INSTAGRAM_URL}
+              href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-3 rounded-full bg-foreground px-6 py-3.5 text-xs font-medium tracking-[0.2em] text-background uppercase transition-transform hover:scale-[1.02]"
@@ -199,7 +213,7 @@ function Hero() {
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <a
-              href={WHATSAPP_URL}
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-3 rounded-full border border-foreground px-6 py-3.5 text-xs font-medium tracking-[0.2em] text-foreground uppercase transition-colors hover:bg-foreground hover:text-background"
@@ -225,30 +239,31 @@ function Hero() {
           </dl>
         </div>
 
-        <div className="relative">
+        <div className="relative mx-auto w-full max-w-[22rem] px-1 sm:max-w-[25rem] sm:px-2 lg:max-w-[26.5rem] lg:px-3 lg:pr-4 xl:max-w-[28rem]">
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-stone-warm">
             <img
               src={heroImg}
-              alt="ALPAZA campaign — model in flowing motion"
+              alt={`${brandName} campaign — model in flowing motion`}
               width={1600}
               height={1800}
-              className="h-full w-full object-cover"
+              fetchPriority="high"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover"
               style={{ animation: "slow-zoom 1.8s ease-out both" }}
             />
-            <div className="absolute inset-x-6 bottom-6 flex items-end justify-between text-primary-foreground">
+            <div className="absolute inset-x-6 bottom-6 z-10 flex items-end justify-between text-primary-foreground">
               <div>
                 <p className="eyebrow !text-primary-foreground/70">
                   Chapter 01
                 </p>
-                <p className="font-display text-2xl">The First Drop</p>
+                <p className="font-display text-xl sm:text-[1.3rem]">
+                  The First Drop
+                </p>
               </div>
-              <span className="rounded-full border border-primary-foreground/40 px-3 py-1 text-[10px] uppercase tracking-[0.25em]">
+              <span className="rounded-full border border-primary-foreground/40 px-3 py-1 text-[9px] uppercase tracking-[0.25em]">
                 Preview
               </span>
             </div>
-          </div>
-          <div className="pointer-events-none absolute -left-6 -top-6 hidden font-display text-[8rem] leading-none text-foreground/5 lg:block">
-            AZ
           </div>
         </div>
       </div>
@@ -259,12 +274,7 @@ function Hero() {
 /* ---------- Marquee ---------- */
 
 function Marquee() {
-  const words = [
-    "Made for the Move",
-    "Coming Soon",
-    "Minimal Luxury",
-    "Est. Alpaza",
-  ];
+  const words = [tagline, "Coming Soon", "Minimal Luxury", "Est. Alpaza"];
   const line = [...words, ...words, ...words];
   return (
     <div className="border-y border-border bg-background py-5 overflow-hidden">
@@ -351,6 +361,7 @@ function Collection() {
                 width={900}
                 height={1100}
                 loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
               />
               <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-foreground backdrop-blur">
@@ -382,7 +393,7 @@ function About() {
         className={`${reveal.className} mx-auto grid max-w-7xl grid-cols-1 gap-14 px-4 py-24 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24 lg:px-10 lg:py-32`}
       >
         <div>
-          <p className="eyebrow mb-4">About ALPAZA</p>
+          <p className="eyebrow mb-4">About {brandName}</p>
           <h2 className="font-display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
             A quiet study in <span className="italic">motion</span> and
             material.
@@ -390,10 +401,10 @@ function About() {
         </div>
         <div className="space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
           <p>
-            ALPAZA began with a simple obsession: pieces that felt as considered
-            standing still as they do in motion. We design a small, deliberate
-            wardrobe — refined silhouettes, honest fabrics, and finishes that
-            reward a closer look.
+            {brandName} began with a simple obsession: pieces that felt as
+            considered standing still as they do in motion. We design a small,
+            deliberate wardrobe — refined silhouettes, honest fabrics, and
+            finishes that reward a closer look.
           </p>
           <p>
             Every piece is prototyped on real bodies, worn through real days,
@@ -402,7 +413,7 @@ function About() {
           </p>
           <div className="grid grid-cols-2 gap-6 pt-4">
             <Stat k="2026" v="Est. Year" />
-            <Stat k="Meerut" v="Studio" />
+            <Stat k={location.replace(/ Studio$/, "")} v="Studio" />
           </div>
         </div>
       </div>
@@ -449,7 +460,7 @@ function WhyUs() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
       <div className="mb-14 max-w-2xl">
-        <p className="eyebrow mb-3">Why ALPAZA</p>
+        <p className="eyebrow mb-3">Why {brandName}</p>
         <h2 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
           Four principles.
           <br />
@@ -495,6 +506,7 @@ function Fabric() {
               width={1400}
               height={1000}
               loading="lazy"
+              decoding="async"
               className="absolute inset-0 h-full w-full object-cover"
             />
           </div>
@@ -629,7 +641,7 @@ function Faq() {
     },
     {
       q: "How do I order right now?",
-      a: "Message us on Instagram (@alpaza.wear) or WhatsApp (+91 92598 80496) with the piece and your size. We'll confirm availability, share payment options, and arrange shipping.",
+      a: `Message us on Instagram (${instagramHandle}) or WhatsApp (${displayPhoneNumber}) with the piece and your size. We'll confirm availability, share payment options, and arrange shipping.`,
     },
     {
       q: "Do you ship internationally?",
@@ -640,7 +652,7 @@ function Faq() {
       a: "Unworn pieces can be returned within 03 days of delivery. We cover return shipping on any size exchange.",
     },
     {
-      q: "How should I care for ALPAZA pieces?",
+      q: `How should I care for ${brandName} pieces?`,
       a: "Cold wash inside-out, lay flat to dry, and skip the tumble dryer. Full care instructions ship with every order.",
     },
   ];
@@ -660,6 +672,7 @@ function Faq() {
       <div className="divide-y divide-border border-y border-border">
         {items.map((it, i) => {
           const isOpen = open === i;
+          const answerId = `faq-answer-${i}`;
           return (
             <div key={it.q}>
               <button
@@ -667,9 +680,13 @@ function Faq() {
                 onClick={() => setOpen(isOpen ? null : i)}
                 className="flex w-full items-center justify-between gap-6 py-6 text-left transition-colors hover:text-foreground"
                 aria-expanded={isOpen}
+                aria-controls={answerId}
               >
                 <span className="font-display text-xl sm:text-2xl">{it.q}</span>
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border">
+                <span
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border"
+                  aria-hidden="true"
+                >
                   {isOpen ? (
                     <Minus className="h-4 w-4" />
                   ) : (
@@ -678,6 +695,7 @@ function Faq() {
                 </span>
               </button>
               <div
+                id={answerId}
                 className="grid overflow-hidden transition-all duration-500 ease-out"
                 style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
               >
@@ -705,13 +723,13 @@ function Gallery() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="eyebrow mb-3">@alpaza.wear · Instagram</p>
+            <p className="eyebrow mb-3">{instagramHandle} · Instagram</p>
             <h2 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
               Follow the <span className="italic">movement.</span>
             </h2>
           </div>
           <a
-            href={INSTAGRAM_URL}
+            href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 text-sm font-medium tracking-[0.2em] uppercase text-foreground"
@@ -727,7 +745,7 @@ function Gallery() {
           {tiles.map((src, i) => (
             <a
               key={i}
-              href={INSTAGRAM_URL}
+              href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="group relative block aspect-square overflow-hidden rounded-sm bg-background"
@@ -737,6 +755,7 @@ function Gallery() {
                 src={src}
                 alt=""
                 loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 grid place-items-center bg-foreground/0 opacity-0 transition-all duration-300 group-hover:bg-foreground/40 group-hover:opacity-100">
@@ -781,23 +800,18 @@ function Contact() {
 
         <div className="grid gap-3 self-center">
           <ContactRow
-            href={INSTAGRAM_URL}
+            href={instagramUrl}
             icon={Instagram}
             label="Instagram · Order & DM"
-            value="@alpaza.wear"
+            value={instagramHandle}
           />
           <ContactRow
-            href={WHATSAPP_URL}
+            href={whatsappUrl}
             icon={MessageCircle}
             label="WhatsApp · Fastest reply"
-            value="Message +91 92598 80496"
+            value={`Message ${displayPhoneNumber}`}
           />
-          <ContactRow
-            href="#"
-            icon={MapPin}
-            label="Studio"
-            value="Meerut Studio"
-          />
+          <ContactRow href="#" icon={MapPin} label="Studio" value={location} />
         </div>
       </div>
     </section>
@@ -870,7 +884,7 @@ function CustomPrint() {
           </p>
           <p className="mt-8 max-w-lg text-base leading-relaxed text-primary-foreground/70 sm:text-lg">
             Want your own design on a premium oversized tee? Soon you'll be able
-            to upload your artwork or logo and we'll print it on ALPAZA
+            to upload your artwork or logo and we'll print it on {brandName}
             premium-quality t-shirts with the same fabric, fit, and finish.
           </p>
           <button
@@ -910,14 +924,16 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <p className="font-display text-2xl tracking-[0.35em]">ALPAZA</p>
+            <p className="font-display text-2xl tracking-[0.35em]">
+              {brandName}
+            </p>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              Made for the Move. Minimal luxury essentials designed to move with
-              you — launching online soon.
+              {tagline}. Minimal luxury essentials designed to move with you —
+              launching online soon.
             </p>
             <div className="mt-6 flex gap-2">
               <a
-                href={INSTAGRAM_URL}
+                href={instagramUrl}
                 aria-label="Instagram"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -926,7 +942,7 @@ function Footer() {
                 <Instagram className="h-4 w-4" />
               </a>
               <a
-                href={WHATSAPP_URL}
+                href={whatsappUrl}
                 aria-label="WhatsApp"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -955,13 +971,15 @@ function Footer() {
           <FooterCol
             title="Order"
             links={[
-              ["Instagram", INSTAGRAM_URL],
-              ["WhatsApp", WHATSAPP_URL],
+              ["Instagram", instagramUrl],
+              ["WhatsApp", whatsappUrl],
             ]}
           />
         </div>
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} ALPAZA. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} {brandName}. All rights reserved.
+          </p>
           <p className="tracking-[0.25em] uppercase">
             Designed by{" "}
             <a

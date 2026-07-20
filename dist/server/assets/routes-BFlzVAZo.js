@@ -1,12 +1,12 @@
-import { t as INSTAGRAM_URL } from "./routes-yt0DMGrt.js";
+import { a as location, i as instagramUrl, l as tagline, n as displayPhoneNumber, r as instagramHandle, t as brandName, u as whatsappUrl } from "./routes-C5Lf83NT.js";
 import { useEffect, useRef, useState } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { ArrowUpRight, Camera, Instagram, Leaf, MapPin, MessageCircle, Minus, Plus, Ruler, ShieldCheck, Sparkles, Star, Truck } from "lucide-react";
 //#region src/assets/hero.jpg
-var hero_default = "/assets/hero-DczPmavd.jpg";
+var hero_default = "/assets/hero-B37IkO5E.jpg";
 //#endregion
 //#region src/assets/collection-1.jpg
-var collection_1_default = "/assets/collection-1-B37IkO5E.jpg";
+var collection_1_default = "/assets/collection-1-DczPmavd.jpg";
 //#endregion
 //#region src/assets/collection-2.jpg
 var collection_2_default = "/assets/collection-2-hPZBubSf.jpg";
@@ -30,10 +30,11 @@ var tee_4_default = "/assets/tee-4-CcxjlR-b.jpg";
 var fabric_default = "/assets/fabric-CwxsNMFw.jpg";
 //#endregion
 //#region src/hooks/use-reveal.ts
-function useReveal(options = {
+var defaultRevealOptions = {
 	threshold: .15,
 	rootMargin: "0px 0px -60px 0px"
-}) {
+};
+function useReveal(options = defaultRevealOptions) {
 	const ref = useRef(null);
 	const [visible, setVisible] = useState(false);
 	useEffect(() => {
@@ -52,7 +53,7 @@ function useReveal(options = {
 		}, options);
 		obs.observe(node);
 		return () => obs.disconnect();
-	}, []);
+	}, [options]);
 	return {
 		ref,
 		className: visible ? "reveal reveal-in" : "reveal"
@@ -60,7 +61,6 @@ function useReveal(options = {
 }
 //#endregion
 //#region src/routes/index.tsx?tsr-split=component
-var WHATSAPP_URL = "https://wa.me/919259880496?text=Hi%20ALPAZA%2C%20I%27d%20like%20to%20place%20an%20order.";
 function LandingPage() {
 	return /* @__PURE__ */ jsxs("div", {
 		className: "min-h-screen bg-background text-foreground",
@@ -115,7 +115,7 @@ function Nav() {
 				/* @__PURE__ */ jsx("a", {
 					href: "#top",
 					className: "font-display text-xl tracking-[0.35em] sm:text-2xl",
-					children: "ALPAZA"
+					children: brandName
 				}),
 				/* @__PURE__ */ jsx("nav", {
 					className: "hidden justify-center gap-9 text-sm text-muted-foreground md:flex",
@@ -134,14 +134,14 @@ function Nav() {
 				/* @__PURE__ */ jsxs("div", {
 					className: "flex items-center gap-2",
 					children: [/* @__PURE__ */ jsx("a", {
-						href: INSTAGRAM_URL,
-						"aria-label": "ALPAZA on Instagram",
+						href: instagramUrl,
+						"aria-label": `${brandName} on Instagram`,
 						target: "_blank",
 						rel: "noopener noreferrer",
 						className: "grid h-9 w-9 place-items-center rounded-full border border-border transition-colors hover:bg-foreground hover:text-background",
 						children: /* @__PURE__ */ jsx(Instagram, { className: "h-4 w-4" })
 					}), /* @__PURE__ */ jsxs("a", {
-						href: WHATSAPP_URL,
+						href: whatsappUrl,
 						"aria-label": "Order via WhatsApp",
 						target: "_blank",
 						rel: "noopener noreferrer",
@@ -177,14 +177,14 @@ function Hero() {
 							})
 						]
 					}),
-					/* @__PURE__ */ jsx("p", {
+					/* @__PURE__ */ jsxs("p", {
 						className: "mt-8 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg",
-						children: "ALPAZA is a minimal luxury label engineered around motion — refined silhouettes, considered fabrics, and pieces built to move with you, not against you."
+						children: [brandName, " is a minimal luxury label engineered around motion — refined silhouettes, considered fabrics, and pieces built to move with you, not against you."]
 					}),
 					/* @__PURE__ */ jsxs("div", {
 						className: "mt-10 flex flex-wrap items-center gap-3",
 						children: [/* @__PURE__ */ jsxs("a", {
-							href: INSTAGRAM_URL,
+							href: instagramUrl,
 							target: "_blank",
 							rel: "noopener noreferrer",
 							className: "group inline-flex items-center gap-3 rounded-full bg-foreground px-6 py-3.5 text-xs font-medium tracking-[0.2em] text-background uppercase transition-transform hover:scale-[1.02]",
@@ -194,7 +194,7 @@ function Hero() {
 								/* @__PURE__ */ jsx(ArrowUpRight, { className: "h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" })
 							]
 						}), /* @__PURE__ */ jsxs("a", {
-							href: WHATSAPP_URL,
+							href: whatsappUrl,
 							target: "_blank",
 							rel: "noopener noreferrer",
 							className: "group inline-flex items-center gap-3 rounded-full border border-foreground px-6 py-3.5 text-xs font-medium tracking-[0.2em] text-foreground uppercase transition-colors hover:bg-foreground hover:text-background",
@@ -216,41 +216,40 @@ function Hero() {
 						})] }, v))
 					})
 				]
-			}), /* @__PURE__ */ jsxs("div", {
-				className: "relative",
-				children: [/* @__PURE__ */ jsxs("div", {
+			}), /* @__PURE__ */ jsx("div", {
+				className: "relative mx-auto w-full max-w-[22rem] px-1 sm:max-w-[25rem] sm:px-2 lg:max-w-[26.5rem] lg:px-3 lg:pr-4 xl:max-w-[28rem]",
+				children: /* @__PURE__ */ jsxs("div", {
 					className: "relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-stone-warm",
 					children: [/* @__PURE__ */ jsx("img", {
 						src: hero_default,
-						alt: "ALPAZA campaign — model in flowing motion",
+						alt: `${brandName} campaign — model in flowing motion`,
 						width: 1600,
 						height: 1800,
-						className: "h-full w-full object-cover",
+						fetchPriority: "high",
+						decoding: "async",
+						className: "absolute inset-0 h-full w-full object-cover",
 						style: { animation: "slow-zoom 1.8s ease-out both" }
 					}), /* @__PURE__ */ jsxs("div", {
-						className: "absolute inset-x-6 bottom-6 flex items-end justify-between text-primary-foreground",
+						className: "absolute inset-x-6 bottom-6 z-10 flex items-end justify-between text-primary-foreground",
 						children: [/* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("p", {
 							className: "eyebrow !text-primary-foreground/70",
 							children: "Chapter 01"
 						}), /* @__PURE__ */ jsx("p", {
-							className: "font-display text-2xl",
+							className: "font-display text-xl sm:text-[1.3rem]",
 							children: "The First Drop"
 						})] }), /* @__PURE__ */ jsx("span", {
-							className: "rounded-full border border-primary-foreground/40 px-3 py-1 text-[10px] uppercase tracking-[0.25em]",
+							className: "rounded-full border border-primary-foreground/40 px-3 py-1 text-[9px] uppercase tracking-[0.25em]",
 							children: "Preview"
 						})]
 					})]
-				}), /* @__PURE__ */ jsx("div", {
-					className: "pointer-events-none absolute -left-6 -top-6 hidden font-display text-[8rem] leading-none text-foreground/5 lg:block",
-					children: "AZ"
-				})]
+				})
 			})]
 		})
 	});
 }
 function Marquee() {
 	const words = [
-		"Made for the Move",
+		tagline,
 		"Coming Soon",
 		"Minimal Luxury",
 		"Est. Alpaza"
@@ -339,6 +338,7 @@ function Collection() {
 						width: 900,
 						height: 1100,
 						loading: "lazy",
+						decoding: "async",
 						className: "h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
 					}), /* @__PURE__ */ jsx("span", {
 						className: "absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-foreground backdrop-blur",
@@ -377,9 +377,9 @@ function About() {
 		children: /* @__PURE__ */ jsxs("div", {
 			ref: reveal.ref,
 			className: `${reveal.className} mx-auto grid max-w-7xl grid-cols-1 gap-14 px-4 py-24 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24 lg:px-10 lg:py-32`,
-			children: [/* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("p", {
+			children: [/* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsxs("p", {
 				className: "eyebrow mb-4",
-				children: "About ALPAZA"
+				children: ["About ", brandName]
 			}), /* @__PURE__ */ jsxs("h2", {
 				className: "font-display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl",
 				children: [
@@ -393,7 +393,7 @@ function About() {
 			})] }), /* @__PURE__ */ jsxs("div", {
 				className: "space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg",
 				children: [
-					/* @__PURE__ */ jsx("p", { children: "ALPAZA began with a simple obsession: pieces that felt as considered standing still as they do in motion. We design a small, deliberate wardrobe — refined silhouettes, honest fabrics, and finishes that reward a closer look." }),
+					/* @__PURE__ */ jsxs("p", { children: [brandName, " began with a simple obsession: pieces that felt as considered standing still as they do in motion. We design a small, deliberate wardrobe — refined silhouettes, honest fabrics, and finishes that reward a closer look."] }),
 					/* @__PURE__ */ jsx("p", { children: "Every piece is prototyped on real bodies, worn through real days, and revised until nothing pulls, bunches, or restricts. The result is a uniform for the way you actually live." }),
 					/* @__PURE__ */ jsxs("div", {
 						className: "grid grid-cols-2 gap-6 pt-4",
@@ -401,7 +401,7 @@ function About() {
 							k: "2026",
 							v: "Est. Year"
 						}), /* @__PURE__ */ jsx(Stat, {
-							k: "Meerut",
+							k: location.replace(/ Studio$/, ""),
 							v: "Studio"
 						})]
 					})
@@ -450,9 +450,9 @@ function WhyUs() {
 		className: "mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10 lg:py-32",
 		children: [/* @__PURE__ */ jsxs("div", {
 			className: "mb-14 max-w-2xl",
-			children: [/* @__PURE__ */ jsx("p", {
+			children: [/* @__PURE__ */ jsxs("p", {
 				className: "eyebrow mb-3",
-				children: "Why ALPAZA"
+				children: ["Why ", brandName]
 			}), /* @__PURE__ */ jsxs("h2", {
 				className: "font-display text-4xl leading-tight sm:text-5xl lg:text-6xl",
 				children: [
@@ -502,6 +502,7 @@ function Fabric() {
 						width: 1400,
 						height: 1e3,
 						loading: "lazy",
+						decoding: "async",
 						className: "absolute inset-0 h-full w-full object-cover"
 					})
 				})
@@ -633,7 +634,7 @@ function Faq() {
 		},
 		{
 			q: "How do I order right now?",
-			a: "Message us on Instagram (@alpaza.wear) or WhatsApp (+91 92598 80496) with the piece and your size. We'll confirm availability, share payment options, and arrange shipping."
+			a: `Message us on Instagram (${instagramHandle}) or WhatsApp (${displayPhoneNumber}) with the piece and your size. We'll confirm availability, share payment options, and arrange shipping.`
 		},
 		{
 			q: "Do you ship internationally?",
@@ -644,7 +645,7 @@ function Faq() {
 			a: "Unworn pieces can be returned within 03 days of delivery. We cover return shipping on any size exchange."
 		},
 		{
-			q: "How should I care for ALPAZA pieces?",
+			q: `How should I care for ${brandName} pieces?`,
 			a: "Cold wash inside-out, lay flat to dry, and skip the tumble dryer. Full care instructions ship with every order."
 		}
 	];
@@ -672,19 +673,23 @@ function Faq() {
 			className: "divide-y divide-border border-y border-border",
 			children: items.map((it, i) => {
 				const isOpen = open === i;
+				const answerId = `faq-answer-${i}`;
 				return /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsxs("button", {
 					type: "button",
 					onClick: () => setOpen(isOpen ? null : i),
 					className: "flex w-full items-center justify-between gap-6 py-6 text-left transition-colors hover:text-foreground",
 					"aria-expanded": isOpen,
+					"aria-controls": answerId,
 					children: [/* @__PURE__ */ jsx("span", {
 						className: "font-display text-xl sm:text-2xl",
 						children: it.q
 					}), /* @__PURE__ */ jsx("span", {
 						className: "grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border",
+						"aria-hidden": "true",
 						children: isOpen ? /* @__PURE__ */ jsx(Minus, { className: "h-4 w-4" }) : /* @__PURE__ */ jsx(Plus, { className: "h-4 w-4" })
 					})]
 				}), /* @__PURE__ */ jsx("div", {
+					id: answerId,
 					className: "grid overflow-hidden transition-all duration-500 ease-out",
 					style: { gridTemplateRows: isOpen ? "1fr" : "0fr" },
 					children: /* @__PURE__ */ jsx("div", {
@@ -715,9 +720,9 @@ function Gallery() {
 			className: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-10",
 			children: [/* @__PURE__ */ jsxs("div", {
 				className: "mb-12 flex flex-wrap items-end justify-between gap-6",
-				children: [/* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("p", {
+				children: [/* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsxs("p", {
 					className: "eyebrow mb-3",
-					children: "@alpaza.wear · Instagram"
+					children: [instagramHandle, " · Instagram"]
 				}), /* @__PURE__ */ jsxs("h2", {
 					className: "font-display text-4xl leading-tight sm:text-5xl lg:text-6xl",
 					children: ["Follow the ", /* @__PURE__ */ jsx("span", {
@@ -725,7 +730,7 @@ function Gallery() {
 						children: "movement."
 					})]
 				})] }), /* @__PURE__ */ jsxs("a", {
-					href: INSTAGRAM_URL,
+					href: instagramUrl,
 					target: "_blank",
 					rel: "noopener noreferrer",
 					className: "group inline-flex items-center gap-2 text-sm font-medium tracking-[0.2em] uppercase text-foreground",
@@ -735,7 +740,7 @@ function Gallery() {
 				ref: reveal.ref,
 				className: `${reveal.className} grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-6`,
 				children: tiles.map((src, i) => /* @__PURE__ */ jsxs("a", {
-					href: INSTAGRAM_URL,
+					href: instagramUrl,
 					target: "_blank",
 					rel: "noopener noreferrer",
 					className: "group relative block aspect-square overflow-hidden rounded-sm bg-background",
@@ -744,6 +749,7 @@ function Gallery() {
 						src,
 						alt: "",
 						loading: "lazy",
+						decoding: "async",
 						className: "h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
 					}), /* @__PURE__ */ jsx("div", {
 						className: "absolute inset-0 grid place-items-center bg-foreground/0 opacity-0 transition-all duration-300 group-hover:bg-foreground/40 group-hover:opacity-100",
@@ -786,22 +792,22 @@ function Contact() {
 				className: "grid gap-3 self-center",
 				children: [
 					/* @__PURE__ */ jsx(ContactRow, {
-						href: INSTAGRAM_URL,
+						href: instagramUrl,
 						icon: Instagram,
 						label: "Instagram · Order & DM",
-						value: "@alpaza.wear"
+						value: instagramHandle
 					}),
 					/* @__PURE__ */ jsx(ContactRow, {
-						href: WHATSAPP_URL,
+						href: whatsappUrl,
 						icon: MessageCircle,
 						label: "WhatsApp · Fastest reply",
-						value: "Message +91 92598 80496"
+						value: `Message ${displayPhoneNumber}`
 					}),
 					/* @__PURE__ */ jsx(ContactRow, {
 						href: "#",
 						icon: MapPin,
 						label: "Studio",
-						value: "Meerut Studio"
+						value: location
 					})
 				]
 			})]
@@ -855,9 +861,13 @@ function CustomPrint() {
 					className: "mt-4 font-display text-2xl italic text-primary-foreground/70 sm:text-3xl",
 					children: "Coming Soon."
 				}),
-				/* @__PURE__ */ jsx("p", {
+				/* @__PURE__ */ jsxs("p", {
 					className: "mt-8 max-w-lg text-base leading-relaxed text-primary-foreground/70 sm:text-lg",
-					children: "Want your own design on a premium oversized tee? Soon you'll be able to upload your artwork or logo and we'll print it on ALPAZA premium-quality t-shirts with the same fabric, fit, and finish."
+					children: [
+						"Want your own design on a premium oversized tee? Soon you'll be able to upload your artwork or logo and we'll print it on ",
+						brandName,
+						"premium-quality t-shirts with the same fabric, fit, and finish."
+					]
 				}),
 				/* @__PURE__ */ jsxs("button", {
 					type: "button",
@@ -902,23 +912,23 @@ function Footer() {
 					/* @__PURE__ */ jsxs("div", { children: [
 						/* @__PURE__ */ jsx("p", {
 							className: "font-display text-2xl tracking-[0.35em]",
-							children: "ALPAZA"
+							children: brandName
 						}),
-						/* @__PURE__ */ jsx("p", {
+						/* @__PURE__ */ jsxs("p", {
 							className: "mt-4 max-w-xs text-sm text-muted-foreground",
-							children: "Made for the Move. Minimal luxury essentials designed to move with you — launching online soon."
+							children: [tagline, ". Minimal luxury essentials designed to move with you — launching online soon."]
 						}),
 						/* @__PURE__ */ jsxs("div", {
 							className: "mt-6 flex gap-2",
 							children: [/* @__PURE__ */ jsx("a", {
-								href: INSTAGRAM_URL,
+								href: instagramUrl,
 								"aria-label": "Instagram",
 								target: "_blank",
 								rel: "noopener noreferrer",
 								className: "grid h-10 w-10 place-items-center rounded-full border border-border transition-colors hover:bg-foreground hover:text-background",
 								children: /* @__PURE__ */ jsx(Instagram, { className: "h-4 w-4" })
 							}), /* @__PURE__ */ jsx("a", {
-								href: WHATSAPP_URL,
+								href: whatsappUrl,
 								"aria-label": "WhatsApp",
 								target: "_blank",
 								rel: "noopener noreferrer",
@@ -945,7 +955,7 @@ function Footer() {
 					}),
 					/* @__PURE__ */ jsx(FooterCol, {
 						title: "Order",
-						links: [["Instagram", INSTAGRAM_URL], ["WhatsApp", WHATSAPP_URL]]
+						links: [["Instagram", instagramUrl], ["WhatsApp", whatsappUrl]]
 					})
 				]
 			}), /* @__PURE__ */ jsxs("div", {
@@ -953,7 +963,9 @@ function Footer() {
 				children: [/* @__PURE__ */ jsxs("p", { children: [
 					"© ",
 					(/* @__PURE__ */ new Date()).getFullYear(),
-					" ALPAZA. All rights reserved."
+					" ",
+					brandName,
+					". All rights reserved."
 				] }), /* @__PURE__ */ jsxs("p", {
 					className: "tracking-[0.25em] uppercase",
 					children: [

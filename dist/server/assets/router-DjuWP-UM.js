@@ -1,9 +1,9 @@
-import { t as INSTAGRAM_URL } from "./routes-yt0DMGrt.js";
+import { c as siteUrl, d as appConfig, i as instagramUrl, l as tagline, o as phoneNumber, s as seoKeywords, t as brandName } from "./routes-C5Lf83NT.js";
 import { HeadContent, Link, Outlet, Scripts, createFileRoute, createRootRouteWithContext, createRouter, lazyRouteComponent, useRouter } from "@tanstack/react-router";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 //#region src/styles.css?url
-var styles_default = "/assets/styles-D2G0qro9.css";
+var styles_default = "/assets/styles-DOVPEv0c.css";
 //#endregion
 //#region src/routes/__root.tsx
 function NotFoundComponent() {
@@ -79,10 +79,10 @@ var Route$1 = createRootRouteWithContext()({
 				name: "viewport",
 				content: "width=device-width, initial-scale=1"
 			},
-			{ title: "ALPAZA — Made for the Move" },
+			{ title: appConfig.seoTitle },
 			{
 				name: "description",
-				content: "ALPAZA is a minimal luxury clothing brand designed for movement. Online cart launching soon — order now via Instagram or WhatsApp."
+				content: appConfig.seoDescription
 			},
 			{
 				name: "theme-color",
@@ -90,19 +90,23 @@ var Route$1 = createRootRouteWithContext()({
 			},
 			{
 				property: "og:site_name",
-				content: "ALPAZA"
+				content: appConfig.brandName
 			},
 			{
 				property: "og:title",
-				content: "ALPAZA — Made for the Move"
+				content: appConfig.seoTitle
 			},
 			{
 				property: "og:description",
-				content: "ALPAZA is a minimal luxury clothing brand designed for movement. Online cart launching soon — order now via Instagram or WhatsApp."
+				content: appConfig.seoDescription
 			},
 			{
 				property: "og:type",
 				content: "website"
+			},
+			{
+				property: "og:url",
+				content: appConfig.siteUrl
 			},
 			{
 				name: "twitter:card",
@@ -110,19 +114,19 @@ var Route$1 = createRootRouteWithContext()({
 			},
 			{
 				name: "twitter:title",
-				content: "ALPAZA — Made for the Move"
+				content: appConfig.seoTitle
 			},
 			{
 				name: "twitter:description",
-				content: "ALPAZA is a minimal luxury clothing brand designed for movement. Online cart launching soon — order now via Instagram or WhatsApp."
+				content: appConfig.seoDescription
 			},
 			{
 				property: "og:image",
-				content: "/og-image.jpg"
+				content: appConfig.ogImage
 			},
 			{
 				name: "twitter:image",
-				content: "/og-image.jpg"
+				content: appConfig.ogImage
 			}
 		],
 		links: [
@@ -134,6 +138,10 @@ var Route$1 = createRootRouteWithContext()({
 				rel: "icon",
 				href: "/favicon.ico",
 				type: "image/x-icon"
+			},
+			{
+				rel: "canonical",
+				href: appConfig.siteUrl
 			},
 			{
 				rel: "preconnect",
@@ -170,24 +178,29 @@ function RootComponent() {
 }
 //#endregion
 //#region src/routes/index.tsx
-var $$splitComponentImporter = () => import("./routes-JWpxYYuM.js");
+var $$splitComponentImporter = () => import("./routes-BFlzVAZo.js");
 //#endregion
 //#region src/routeTree.gen.ts
 var rootRouteChildren = { IndexRoute: createFileRoute("/")({
 	head: () => ({
 		meta: [{
 			name: "keywords",
-			content: "ALPAZA, luxury clothing, minimal fashion, athleisure, premium essentials, made for the move, coming soon"
+			content: seoKeywords
 		}],
 		scripts: [{
 			type: "application/ld+json",
 			children: JSON.stringify({
 				"@context": "https://schema.org",
 				"@type": "Organization",
-				name: "ALPAZA",
-				slogan: "Made for the Move.",
-				url: "/",
-				sameAs: [INSTAGRAM_URL]
+				name: brandName,
+				slogan: `${tagline}.`,
+				url: siteUrl,
+				sameAs: [instagramUrl],
+				contactPoint: {
+					"@type": "ContactPoint",
+					telephone: phoneNumber,
+					contactType: "customer service"
+				}
 			})
 		}]
 	}),
