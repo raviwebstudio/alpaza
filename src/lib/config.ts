@@ -11,7 +11,7 @@ const siteUrl = getEnv("VITE_SITE_URL", "https://www.alpazaa.in").replace(
   /\/$/,
   "",
 );
-const instagramUrl = getEnv(
+const rawInstagramUrl = getEnv(
   "VITE_INSTAGRAM_URL",
   "https://www.instagram.com/alpaza.wear/",
 );
@@ -29,6 +29,16 @@ const seoDescription = getEnv(
 
 const whatsappMessage = `Hi ${brandName}, I'd like to place an order.`;
 
+// Parse Instagram URL and Handle robustly to support handles (e.g. "alpaza.wear" or "@alpaza.wear")
+// as well as full URLs in the environment variables.
+const instagramUrl = rawInstagramUrl.startsWith("http")
+  ? rawInstagramUrl
+  : `https://www.instagram.com/${rawInstagramUrl.replace(/^@/, "")}`;
+
+const instagramHandle = rawInstagramUrl.startsWith("http")
+  ? rawInstagramUrl.replace(/\/$/, "").split("/").pop() || "alpaza.wear"
+  : rawInstagramUrl.replace(/^@/, "");
+
 export const appConfig = {
   brandName,
   tagline,
@@ -41,7 +51,7 @@ export const appConfig = {
   seoTitle,
   seoDescription,
   ogImage: "/og-image.jpg",
-  instagramHandle: "alpaza.wear",
+  instagramHandle,
   seoKeywords:
     "ALPAZA, luxury clothing, minimal fashion, athleisure, premium essentials, made for the move, coming soon",
 } as const;
