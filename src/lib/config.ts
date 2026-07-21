@@ -64,7 +64,7 @@ export const appConfig = {
   ogLocale: "en_IN",
   /** Geo coordinates for local SEO */
   geoRegion: "IN-UP",
-  geoPlaceName: "Meerut, Uttar Pradesh, India",
+  geoPlaceName: "Meerut, U.P., India",
   /** Full absolute OG image URL */
   get ogImageAbsolute() {
     return `${siteUrl}/og-image.jpg`;

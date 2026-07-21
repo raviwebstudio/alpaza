@@ -128,7 +128,7 @@ export const Route = createFileRoute("/")({
             address: {
               "@type": "PostalAddress",
               addressLocality: "Meerut",
-              addressRegion: "Uttar Pradesh",
+              addressRegion: "U.P.",
               addressCountry: "IN",
             },
           },
@@ -736,15 +736,10 @@ function About() {
         </div>
         <div className="space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
           <p>
-            {brandName} began with a simple obsession: pieces that felt as
-            considered standing still as they do in motion. We design a small,
-            deliberate wardrobe — refined silhouettes, honest fabrics, and
-            finishes that reward a closer look.
+            {brandName} is a premium apparel brand and clothing manufacturer redefining everyday essentials. We create premium oversized T-shirts and luxury cotton apparel that blend refined silhouettes, premium fabrics, and meticulous finishing for a modern, effortless look.
           </p>
           <p>
-            Every piece is prototyped on real bodies, worn through real days,
-            and revised until nothing pulls, bunches, or restricts. The result
-            is a uniform for the way you actually live.
+            Proudly Made in India, {brandName} serves both retail (B2C) customers and wholesale (B2B) partners, offering premium apparel manufacturing, custom branding, and bulk production for fashion brands, startups, retailers, and businesses.
           </p>
           <div className="grid grid-cols-2 gap-6 pt-4">
             <Stat k="2026" v="Est. Year" />
@@ -1225,10 +1220,10 @@ function CustomPrint() {
   const reveal = useReveal();
   const features = [
     "Your Design",
-    "Premium Oversized T-Shirts",
+    "Premium T-Shirts",
     "High Quality Printing",
+    "Manufacturer",
     "Bulk & Personal Orders",
-    "Launching Soon",
   ];
   return (
     <section
