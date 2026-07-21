@@ -943,7 +943,7 @@ function Testimonials() {
                 <div
                   className="flex items-center gap-1"
                   aria-label="5 out of 5 stars"
-                  style={{ color: "#F5C542" }}
+                  style={{ color: "#d08f0bff" }}
                 >
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
