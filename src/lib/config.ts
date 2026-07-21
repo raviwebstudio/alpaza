@@ -7,7 +7,7 @@ const getEnv = (key: string, fallback: string) => {
 
 const brandName = getEnv("VITE_BRAND_NAME", "ALPAZA");
 const tagline = getEnv("VITE_TAGLINE", "Made for the Move");
-const siteUrl = getEnv("VITE_SITE_URL", "https://www.alpazaa.in").replace(
+const siteUrl = getEnv("VITE_SITE_URL", "https://www.alpaza.in").replace(
   /\/$/,
   "",
 );
@@ -20,11 +20,14 @@ const whatsappBaseUrl = getEnv(
   "https://wa.me/919259880496",
 );
 const phoneNumber = getEnv("VITE_PHONE_NUMBER", "+919259880496");
-const location = getEnv("VITE_LOCATION", "Meerut Studio");
-const seoTitle = getEnv("VITE_SEO_TITLE", "ALPAZA — Made for the Move");
+const location = getEnv("VITE_LOCATION", "Meerut, Uttar Pradesh, India");
+const seoTitle = getEnv(
+  "VITE_SEO_TITLE",
+  "ALPAZA — Premium Oversized T-Shirts | Made in India",
+);
 const seoDescription = getEnv(
   "VITE_SEO_DESCRIPTION",
-  "Premium oversized clothing brand.",
+  "ALPAZA is a premium oversized T-shirt brand made in India. Shop minimal luxury streetwear crafted from 100% premium cotton. B2B wholesale, B2C retail, and custom print available. Order via Instagram or WhatsApp.",
 );
 
 const whatsappMessage = `Hi ${brandName}, I'd like to place an order.`;
@@ -50,8 +53,20 @@ export const appConfig = {
   location,
   seoTitle,
   seoDescription,
-  ogImage: "/og-image.jpg",
+  ogImage: `${siteUrl}/og-image.jpg`,
   instagramHandle,
+  /** Comprehensive keyword set covering all target search terms */
   seoKeywords:
-    "ALPAZA, luxury clothing, minimal fashion, athleisure, premium essentials, made for the move, coming soon",
+    "ALPAZA, premium oversized t-shirts, oversized t-shirts India, men's oversized tee, premium cotton t-shirts, streetwear brand India, minimal luxury clothing, Made in India apparel, apparel manufacturer India, wholesale t-shirts India, B2B clothing supplier, B2C fashion brand, bulk t-shirt order, custom print t-shirts, oversized fit tees, 240 GSM t-shirt, Meerut clothing brand, UP streetwear, premium essentials, made for the move",
+  /** Twitter/X handle (without @) */
+  twitterHandle: "alpaza_wear",
+  /** Locale for Open Graph */
+  ogLocale: "en_IN",
+  /** Geo coordinates for local SEO */
+  geoRegion: "IN-UP",
+  geoPlaceName: "Meerut, Uttar Pradesh, India",
+  /** Full absolute OG image URL */
+  get ogImageAbsolute() {
+    return `${siteUrl}/og-image.jpg`;
+  },
 } as const;

@@ -41,6 +41,39 @@ const {
   instagramHandle,
 } = appConfig;
 
+/**
+ * Module-level year constant — prevents React hydration mismatch
+ * that occurs when new Date() is called inline during render.
+ * Both SSR and client evaluate this once at module initialisation
+ * time, producing the same value within a single deploy.
+ */
+const CURRENT_YEAR = new Date().getFullYear();
+
+
+/** FAQ items mirrored for structured data */
+const faqStructuredItems = [
+  {
+    q: "When does the online store launch?",
+    a: "Our online cart is launching soon. Until then, every order is placed personally through Instagram DM or WhatsApp — you get a real human response within 24 hours.",
+  },
+  {
+    q: "How do I order right now?",
+    a: `Message us on Instagram (@alpaza.wear) or WhatsApp (+91 92598 80496) with the piece and your size. We'll confirm availability, share payment options, and arrange shipping.`,
+  },
+  {
+    q: "Do you ship internationally?",
+    a: "Yes. We currently arrange international shipping on request. Full worldwide checkout will be available at launch.",
+  },
+  {
+    q: "What is your return policy?",
+    a: "Unworn pieces can be returned within 3 days of delivery. We cover return shipping on any size exchange.",
+  },
+  {
+    q: `How should I care for ALPAZA pieces?`,
+    a: "Cold wash inside-out, lay flat to dry, and skip the tumble dryer. Full care instructions ship with every order.",
+  },
+];
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -48,22 +81,299 @@ export const Route = createFileRoute("/")({
         name: "keywords",
         content: seoKeywords,
       },
+      // Page-specific robots override
+      {
+        name: "robots",
+        content:
+          "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      },
+      // Page-specific canonical
+      { property: "og:url", content: siteUrl },
+      { property: "og:type", content: "website" },
+    ],
+    links: [
+      // Preload the LCP hero image for faster rendering
+      {
+        rel: "preload",
+        href: heroImg,
+        as: "image",
+        type: "image/jpeg",
+        fetchPriority: "high",
+      },
     ],
     scripts: [
+      // 1. Organization
       {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
           name: brandName,
+          alternateName: "Alpaza Wear",
+          description:
+            "ALPAZA is a premium oversized T-shirt brand and apparel manufacturer based in Meerut, India. We offer B2B wholesale and B2C retail of premium cotton streetwear.",
           slogan: `${tagline}.`,
           url: siteUrl,
-          sameAs: [instagramUrl],
-          contactPoint: {
-            "@type": "ContactPoint",
-            telephone: phoneNumber,
-            contactType: "customer service",
+          logo: {
+            "@type": "ImageObject",
+            url: `${siteUrl}/og-image.jpg`,
+            width: 1200,
+            height: 630,
           },
+          foundingDate: "2026",
+          foundingLocation: {
+            "@type": "Place",
+            name: location,
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "Meerut",
+              addressRegion: "Uttar Pradesh",
+              addressCountry: "IN",
+            },
+          },
+          sameAs: [
+            instagramUrl,
+            `https://wa.me/${phoneNumber.replace("+", "")}`,
+          ],
+          contactPoint: [
+            {
+              "@type": "ContactPoint",
+              telephone: phoneNumber,
+              contactType: "customer service",
+              availableLanguage: ["English", "Hindi"],
+              areaServed: "IN",
+            },
+            {
+              "@type": "ContactPoint",
+              telephone: phoneNumber,
+              contactType: "sales",
+              availableLanguage: ["English", "Hindi"],
+              areaServed: "Worldwide",
+            },
+          ],
+        }),
+      },
+      // 2. Brand
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Brand",
+          name: brandName,
+          alternateName: "Alpaza Wear",
+          description:
+            "Premium oversized T-shirts and streetwear crafted in India from 100% premium cotton.",
+          url: siteUrl,
+          logo: `${siteUrl}/og-image.jpg`,
+          slogan: tagline,
+        }),
+      },
+      // 3. WebSite with SearchAction
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "@id": `${siteUrl}/#website`,
+          name: brandName,
+          url: siteUrl,
+          description:
+            "Premium oversized T-shirt brand made in India. Shop minimal luxury streetwear crafted from 100% premium cotton.",
+          publisher: {
+            "@id": `${siteUrl}/#organization`,
+          },
+          inLanguage: "en-IN",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate: `${siteUrl}/?q={search_term_string}`,
+            },
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
+      // 4. WebPage
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": `${siteUrl}/#webpage`,
+          url: siteUrl,
+          name: "ALPAZA — Premium Oversized T-Shirts | Made in India",
+          description:
+            "ALPAZA is a premium oversized T-shirt brand made in India. Shop minimal luxury streetwear crafted from 100% premium cotton. B2B wholesale, B2C retail, and custom print available.",
+          isPartOf: {
+            "@id": `${siteUrl}/#website`,
+          },
+          about: {
+            "@id": `${siteUrl}/#organization`,
+          },
+          inLanguage: "en-IN",
+          breadcrumb: {
+            "@id": `${siteUrl}/#breadcrumb`,
+          },
+        }),
+      },
+      // 5. BreadcrumbList
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "@id": `${siteUrl}/#breadcrumb`,
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: siteUrl,
+            },
+          ],
+        }),
+      },
+      // 6. Products
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "ALPAZA Collection — Premium Oversized T-Shirts",
+          description:
+            "A curated debut collection of premium oversized T-shirts made from 100% premium cotton in India.",
+          url: `${siteUrl}/#collection`,
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              item: {
+                "@type": "Product",
+                name: "Essential Oversized Tee",
+                description:
+                  "Signature weight cotton oversized T-shirt by ALPAZA. Engineered fit with reinforced seams.",
+                brand: { "@type": "Brand", name: brandName },
+                manufacturer: {
+                  "@type": "Organization",
+                  name: brandName,
+                  address: {
+                    "@type": "PostalAddress",
+                    addressCountry: "IN",
+                  },
+                },
+                countryOfOrigin: "IN",
+                material: "100% Premium Cotton",
+                category: "Men's Oversized T-Shirts",
+                offers: {
+                  "@type": "Offer",
+                  availability: "https://schema.org/PreOrder",
+                  url: instagramUrl,
+                  seller: { "@type": "Organization", name: brandName },
+                },
+              },
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              item: {
+                "@type": "Product",
+                name: "Signature Heavyweight Tee",
+                description:
+                  "240 GSM combed cotton oversized T-shirt. Premium heavyweight streetwear by ALPAZA.",
+                brand: { "@type": "Brand", name: brandName },
+                manufacturer: {
+                  "@type": "Organization",
+                  name: brandName,
+                  address: {
+                    "@type": "PostalAddress",
+                    addressCountry: "IN",
+                  },
+                },
+                countryOfOrigin: "IN",
+                material: "240 GSM 100% Combed Cotton",
+                category: "Men's Oversized T-Shirts",
+                offers: {
+                  "@type": "Offer",
+                  availability: "https://schema.org/PreOrder",
+                  url: instagramUrl,
+                  seller: { "@type": "Organization", name: brandName },
+                },
+              },
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              item: {
+                "@type": "Product",
+                name: "Classic Oversized Tee",
+                description:
+                  "Premium combed cotton classic oversized T-shirt by ALPAZA. Timeless silhouette, minimal design.",
+                brand: { "@type": "Brand", name: brandName },
+                manufacturer: {
+                  "@type": "Organization",
+                  name: brandName,
+                  address: {
+                    "@type": "PostalAddress",
+                    addressCountry: "IN",
+                  },
+                },
+                countryOfOrigin: "IN",
+                material: "100% Premium Combed Cotton",
+                category: "Men's Oversized T-Shirts",
+                offers: {
+                  "@type": "Offer",
+                  availability: "https://schema.org/PreOrder",
+                  url: instagramUrl,
+                  seller: { "@type": "Organization", name: brandName },
+                },
+              },
+            },
+            {
+              "@type": "ListItem",
+              position: 4,
+              item: {
+                "@type": "Product",
+                name: "Everyday Oversized Tee",
+                description:
+                  "Soft-hand jersey knit everyday oversized T-shirt by ALPAZA. Designed for daily comfort.",
+                brand: { "@type": "Brand", name: brandName },
+                manufacturer: {
+                  "@type": "Organization",
+                  name: brandName,
+                  address: {
+                    "@type": "PostalAddress",
+                    addressCountry: "IN",
+                  },
+                },
+                countryOfOrigin: "IN",
+                material: "100% Soft-hand Jersey Knit Cotton",
+                category: "Men's Oversized T-Shirts",
+                offers: {
+                  "@type": "Offer",
+                  availability: "https://schema.org/PreOrder",
+                  url: instagramUrl,
+                  seller: { "@type": "Organization", name: brandName },
+                },
+              },
+            },
+          ],
+        }),
+      },
+      // 7. FAQPage
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqStructuredItems.map(({ q, a }) => ({
+            "@type": "Question",
+            name: q,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: a,
+            },
+          })),
         }),
       },
     ],
@@ -98,9 +408,13 @@ function LandingPage() {
 
 function AnnouncementBar() {
   return (
-    <div className="bg-ink text-primary-foreground">
+    <div
+      role="region"
+      aria-label="Site announcement"
+      className="bg-ink text-primary-foreground"
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2.5 text-center text-[11px] font-medium tracking-[0.18em] sm:text-xs">
-        <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
+        <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
         <span className="uppercase">
           Online cart launching soon · Order now via Instagram or WhatsApp
         </span>
@@ -130,24 +444,30 @@ function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b transition-all duration-300 ${
-        scrolled
-          ? "border-border/60 bg-background/85 backdrop-blur-md"
-          : "border-transparent bg-background"
-      }`}
+      aria-label="Main site navigation"
+      className={`sticky top-0 z-50 border-b transition-all duration-300 ${scrolled
+        ? "border-border/60 bg-background/85 backdrop-blur-md"
+        : "border-transparent bg-background"
+        }`}
     >
       <div className="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-6 px-4 py-4 sm:px-6 lg:px-10">
         <a
           href="#top"
+          aria-label={`${brandName} — go to top`}
           className="flex items-center"
         >
           <img
             src={logo}
-            alt={brandName}
-            className="h-7 w-auto object-contain sm:h-8"
+            alt={`${brandName} logo`}
+            width={170}
+            height={48}
+            className="object-contain"
           />
         </a>
-        <nav className="hidden justify-center gap-9 text-sm text-muted-foreground md:flex">
+        <nav
+          aria-label="Primary navigation"
+          className="hidden justify-center gap-9 text-sm text-muted-foreground md:flex"
+        >
           {links.map(([label, href]) => (
             <a
               key={href}
@@ -161,21 +481,21 @@ function Nav() {
         <div className="flex items-center gap-2">
           <a
             href={instagramUrl}
-            aria-label={`${brandName} on Instagram`}
+            aria-label={`Follow ${brandName} on Instagram — @alpaza.wear`}
             target="_blank"
             rel="noopener noreferrer"
             className="grid h-9 w-9 place-items-center rounded-full border border-border transition-colors hover:bg-foreground hover:text-background"
           >
-            <Instagram className="h-4 w-4" />
+            <Instagram className="h-4 w-4" aria-hidden="true" />
           </a>
           <a
             href={whatsappUrl}
-            aria-label="Order via WhatsApp"
+            aria-label="Place an order via WhatsApp"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden h-9 items-center gap-2 rounded-full bg-foreground px-4 text-xs font-medium tracking-widest text-background transition-transform hover:scale-[1.02] sm:inline-flex"
           >
-            <MessageCircle className="h-4 w-4" />
+            <MessageCircle className="h-4 w-4" aria-hidden="true" />
             ORDER
           </a>
         </div>
@@ -188,10 +508,14 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden bg-background">
+    <section
+      id="top"
+      aria-label="Hero — ALPAZA Premium Oversized T-Shirts Made in India"
+      className="relative overflow-hidden bg-background"
+    >
       <div className="hero-section mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:px-10 lg:pb-32 lg:pt-24">
         <div className="flex flex-col justify-center">
-          <span className="eyebrow mb-6 inline-flex items-center gap-2">
+          <span className="eyebrow mb-6 inline-flex items-center gap-2" aria-hidden="true">
             <span className="inline-block h-px w-8 bg-foreground/50" />
             Coming Soon · 2026
           </span>
@@ -211,24 +535,29 @@ function Hero() {
               href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Order ALPAZA premium oversized T-shirts on Instagram"
               className="group inline-flex items-center gap-3 rounded-full bg-foreground px-6 py-3.5 text-xs font-medium tracking-[0.2em] text-background uppercase transition-transform hover:scale-[1.02]"
             >
-              <Instagram className="h-4 w-4" />
+              <Instagram className="h-4 w-4" aria-hidden="true" />
               Order on Instagram
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
             </a>
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Order ALPAZA premium oversized T-shirts on WhatsApp"
               className="group inline-flex items-center gap-3 rounded-full border border-foreground px-6 py-3.5 text-xs font-medium tracking-[0.2em] text-foreground uppercase transition-colors hover:bg-foreground hover:text-background"
             >
-              <MessageCircle className="h-4 w-4" />
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
               WhatsApp Order
             </a>
           </div>
 
-          <dl className="mt-14 grid grid-cols-3 gap-6 border-t border-border pt-8 text-left">
+          <dl
+            aria-label="Key facts about ALPAZA"
+            className="mt-14 grid grid-cols-3 gap-6 border-t border-border pt-8 text-left"
+          >
             {[
               ["24h", "Order response"],
               ["100%", "Premium fabrics"],
@@ -248,7 +577,7 @@ function Hero() {
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-stone-warm">
             <img
               src={heroImg}
-              alt={`${brandName} campaign — model in flowing motion`}
+              alt={`${brandName} — premium oversized T-shirt campaign, model wearing minimal luxury streetwear`}
               width={1600}
               height={1800}
               fetchPriority="high"
@@ -256,7 +585,7 @@ function Hero() {
               className="absolute inset-0 h-full w-full object-cover"
               style={{ animation: "slow-zoom 1.8s ease-out both" }}
             />
-            <div className="absolute inset-x-6 bottom-6 z-10 flex items-end justify-between text-primary-foreground">
+            <div className="absolute inset-x-6 bottom-6 z-10 flex items-end justify-between text-primary-foreground" aria-hidden="true">
               <div>
                 <p className="eyebrow !text-primary-foreground/70">
                   Chapter 01
@@ -331,6 +660,7 @@ function Collection() {
   return (
     <section
       id="collection"
+      aria-label="ALPAZA featured collection — premium oversized T-shirts"
       className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10 lg:py-32"
     >
       <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
@@ -345,8 +675,8 @@ function Collection() {
           </h2>
         </div>
         <p className="max-w-sm text-sm text-muted-foreground">
-          A tightly edited debut. Fewer pieces, engineered better — each one
-          designed to move, layer and last.
+          A tightly edited debut of premium oversized T-shirts made in India.
+          Fewer pieces, engineered better — each one designed to move, layer and last.
         </p>
       </div>
 
@@ -463,7 +793,11 @@ function WhyUs() {
   const reveal = useReveal();
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
+    <section
+      id="why-us"
+      aria-label="Why choose ALPAZA — our four core principles"
+      className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10 lg:py-32"
+    >
       <div className="mb-14 max-w-2xl">
         <p className="eyebrow mb-3">Why {brandName}</p>
         <h2 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
@@ -498,7 +832,11 @@ function WhyUs() {
 function Fabric() {
   const reveal = useReveal();
   return (
-    <section id="fabric" className="bg-ink text-primary-foreground">
+    <section
+      id="fabric"
+      aria-label="ALPAZA fabric quality — premium cotton and technical weaves"
+      className="bg-ink text-primary-foreground"
+    >
       <div
         ref={reveal.ref}
         className={`${reveal.className} mx-auto grid max-w-7xl grid-cols-1 gap-14 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-10 lg:py-32`}
@@ -507,12 +845,12 @@ function Fabric() {
           <div className="relative h-full min-h-[420px] overflow-hidden rounded-sm lg:min-h-[560px]">
             <img
               src={fabricImg}
-              alt="Close-up of premium woven fabric"
+              alt="Close-up of premium 100% cotton woven fabric used in ALPAZA oversized T-shirts"
               width={1400}
               height={1000}
               loading="lazy"
               decoding="async"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="pt-4 absolute inset-0 h-full w-full object-cover"
             />
           </div>
         </div>
@@ -526,16 +864,13 @@ function Fabric() {
             <span className="italic opacity-70">Everything follows.</span>
           </h2>
           <p className="mt-6 max-w-lg text-base leading-relaxed text-primary-foreground/70 sm:text-lg">
-            We work with a shortlist of European and Japanese mills to source
-            long-staple cottons, tactile wools, and technical weaves with real
-            recovery. Each fabric is chosen for how it feels on the second wear
+            Each fabric is chosen for how it feels on the second wear
             — and the two-hundredth.
           </p>
           <ul className="mt-10 grid gap-4">
             {[
               "Long-staple Supima & Egyptian cottons",
               "Four-way stretch technical weaves",
-              "OEKO-TEX certified dyes & finishes",
               "Reinforced stitching at every stress point",
             ].map((line) => (
               <li
@@ -577,7 +912,11 @@ function Testimonials() {
     },
   ];
   return (
-    <section className="bg-secondary py-24 lg:py-32">
+    <section
+      id="testimonials"
+      aria-label="Customer testimonials for ALPAZA premium oversized T-shirts"
+      className="bg-secondary py-24 lg:py-32"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-14 max-w-2xl">
           <p className="eyebrow mb-3">Testimonials</p>
@@ -589,11 +928,15 @@ function Testimonials() {
         </div>
         <div
           ref={reveal.ref}
+          role="list"
+          aria-label="Customer reviews"
           className={`${reveal.className} grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4`}
         >
           {items.map((t) => (
             <figure
               key={t.name}
+              role="listitem"
+              aria-label={`Review by ${t.name}`}
               className="flex h-full flex-col justify-between rounded-sm border border-border bg-background p-7 transition-shadow duration-500 hover:shadow-xl"
             >
               <div>
@@ -665,6 +1008,7 @@ function Faq() {
   return (
     <section
       id="faq"
+      aria-label="Frequently asked questions about ALPAZA"
       className="mx-auto max-w-4xl px-4 py-24 sm:px-6 lg:px-10 lg:py-32"
     >
       <div className="mb-12 text-center">
@@ -721,10 +1065,24 @@ function Faq() {
 /* ---------- Gallery ---------- */
 
 function Gallery() {
+  /** Descriptive alt texts for each gallery tile position */
+  const galleryAlts = [
+    `${brandName} collection editorial — oversized streetwear lookbook`,
+    `${brandName} hero campaign — model in premium minimal luxury apparel`,
+    `${brandName} lookbook image — premium cotton oversized T-shirt detail`,
+    `${brandName} collection editorial — seasonal streetwear from India`,
+    `${brandName} fabric close-up — premium woven cotton detail`,
+    `${brandName} campaign — oversized fit lifestyle photography`,
+  ];
   const tiles = [c1, heroImg, c3, c2, fabricImg, c1];
   const reveal = useReveal();
+
   return (
-    <section className="bg-secondary py-24 lg:py-32">
+    <section
+      id="gallery"
+      aria-label="ALPAZA Instagram gallery — follow the movement"
+      className="bg-secondary py-24 lg:py-32"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -737,10 +1095,11 @@ function Gallery() {
             href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Visit ${brandName} on Instagram — @${instagramHandle}`}
             className="group inline-flex items-center gap-2 text-sm font-medium tracking-[0.2em] uppercase text-foreground"
           >
             Visit Instagram
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
           </a>
         </div>
         <div
@@ -754,16 +1113,16 @@ function Gallery() {
               target="_blank"
               rel="noopener noreferrer"
               className="group relative block aspect-square overflow-hidden rounded-sm bg-background"
-              aria-label="Open Instagram"
+              aria-label={`View ALPAZA on Instagram — image ${i + 1}`}
             >
               <img
                 src={src}
-                alt=""
+                alt={galleryAlts[i] ?? `${brandName} Instagram post ${i + 1}`}
                 loading="lazy"
                 decoding="async"
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 grid place-items-center bg-foreground/0 opacity-0 transition-all duration-300 group-hover:bg-foreground/40 group-hover:opacity-100">
+              <div className="absolute inset-0 grid place-items-center bg-foreground/0 opacity-0 transition-all duration-300 group-hover:bg-foreground/40 group-hover:opacity-100" aria-hidden="true">
                 <Camera className="h-5 w-5 text-background" />
               </div>
             </a>
@@ -781,6 +1140,7 @@ function Contact() {
   return (
     <section
       id="contact"
+      aria-label="Contact ALPAZA — order, wholesale, and press enquiries"
       className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10 lg:py-32"
     >
       <div
@@ -797,9 +1157,9 @@ function Contact() {
             </span>
           </h2>
           <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
-            For orders, sizing help, press, or wholesale — reach us on the
-            channels below. A real member of the studio responds within 24
-            hours.
+            For orders, sizing help, press inquiries, or wholesale B2B supply —
+            reach us on the channels below. A real member of the studio responds
+            within 24 hours.
           </p>
         </div>
 
@@ -871,7 +1231,11 @@ function CustomPrint() {
     "Launching Soon",
   ];
   return (
-    <section className="bg-ink text-primary-foreground">
+    <section
+      id="custom-print"
+      aria-label="Custom print on ALPAZA oversized T-shirts — coming soon"
+      className="bg-ink text-primary-foreground"
+    >
       <div
         ref={reveal.ref}
         className={`${reveal.className} mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:px-10 lg:py-32`}
@@ -889,7 +1253,7 @@ function CustomPrint() {
           </p>
           <p className="mt-8 max-w-lg text-base leading-relaxed text-primary-foreground/70 sm:text-lg">
             Want your own design on a premium oversized tee? Soon you'll be able
-            to upload your artwork or logo and we'll print it on {brandName}
+            to upload your artwork or logo and we'll print it on {brandName}{" "}
             premium-quality t-shirts with the same fabric, fit, and finish.
           </p>
           <button
@@ -925,37 +1289,42 @@ function CustomPrint() {
 
 function Footer() {
   return (
-    <footer className="border-t border-border bg-background">
+    <footer
+      aria-label="ALPAZA site footer"
+      className="border-t border-border bg-background"
+    >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
             <img
               src={logo}
-              alt={brandName}
-              className="h-8 w-auto object-contain"
+              alt={`${brandName} — premium oversized T-shirts made in India`}
+              width={200}
+              height={24}
+              className="object-contain"
             />
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              {tagline}. Minimal luxury essentials designed to move with you —
-              launching online soon.
+              <b>Premium oversized T-shirts made in India.</b> Minimal luxury
+              essentials designed to move with you — launching online soon.
             </p>
             <div className="mt-6 flex gap-2">
               <a
                 href={instagramUrl}
-                aria-label="Instagram"
+                aria-label={`Follow ${brandName} on Instagram`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="grid h-10 w-10 place-items-center rounded-full border border-border transition-colors hover:bg-foreground hover:text-background"
               >
-                <Instagram className="h-4 w-4" />
+                <Instagram className="h-4 w-4" aria-hidden="true" />
               </a>
               <a
                 href={whatsappUrl}
-                aria-label="WhatsApp"
+                aria-label={`Order ${brandName} via WhatsApp`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="grid h-10 w-10 place-items-center rounded-full border border-border transition-colors hover:bg-foreground hover:text-background"
               >
-                <MessageCircle className="h-4 w-4" />
+                <MessageCircle className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -984,8 +1353,8 @@ function Footer() {
           />
         </div>
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
-          <p>
-            © {new Date().getFullYear()} {brandName}. All rights reserved.
+          <p suppressHydrationWarning>
+            © {CURRENT_YEAR} {brandName}. All rights reserved.
           </p>
           <p className="tracking-[0.25em] uppercase">
             Designed by{" "}

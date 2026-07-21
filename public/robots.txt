@@ -1,0 +1,31 @@
+# ALPAZA — robots.txt
+# https://www.alpaza.in
+
+User-agent: *
+Allow: /
+Sitemap: https://www.alpaza.in/sitemap.xml
+
+# AI Crawlers — Allow all
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /

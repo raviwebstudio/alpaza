@@ -163,3 +163,54 @@
 #top .hero-section {
   padding-top: 5rem !important;
 }
+
+/* ---------- Performance: content-visibility for below-fold sections ---------- */
+/* Tells the browser to skip layout/paint for off-screen sections until needed */
+#collection,
+#about,
+#why-us,
+#fabric,
+#testimonials,
+#faq,
+#gallery,
+#contact,
+#custom-print {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 800px;
+}
+
+/* ---------- Image optimisation ---------- */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- Accessibility: Respect reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- Focus-visible for keyboard navigation ---------- */
+:focus-visible {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: 3px;
+  border-radius: 2px;
+}

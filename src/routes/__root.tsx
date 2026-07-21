@@ -11,7 +11,7 @@ import type { ReactNode } from "react";
 
 import { appConfig } from "../lib/config";
 import appCss from "../styles.css?url";
-import favicon from "../assets/favicon.jpeg";
+
 
 function NotFoundComponent() {
   return (
@@ -81,28 +81,56 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { title: appConfig.seoTitle },
         { name: "description", content: appConfig.seoDescription },
+        // Robots — index everything, follow links
+        { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+        { name: "googlebot", content: "index, follow" },
+        // Theme / brand
         { name: "theme-color", content: "#111111" },
+        { name: "msapplication-TileColor", content: "#111111" },
+        { name: "application-name", content: appConfig.brandName },
+        // Geo / local SEO
+        { name: "geo.region", content: appConfig.geoRegion },
+        { name: "geo.placename", content: appConfig.geoPlaceName },
+        // Open Graph
         { property: "og:site_name", content: appConfig.brandName },
         { property: "og:title", content: appConfig.seoTitle },
         { property: "og:description", content: appConfig.seoDescription },
         { property: "og:type", content: "website" },
         { property: "og:url", content: appConfig.siteUrl },
+        { property: "og:image", content: appConfig.ogImageAbsolute },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: `${appConfig.brandName} — Premium Oversized T-Shirts Made in India` },
+        { property: "og:image:type", content: "image/jpeg" },
+        { property: "og:locale", content: appConfig.ogLocale },
+        // Twitter / X Card
         { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:site", content: `@${appConfig.twitterHandle}` },
+        { name: "twitter:creator", content: `@${appConfig.twitterHandle}` },
         { name: "twitter:title", content: appConfig.seoTitle },
         { name: "twitter:description", content: appConfig.seoDescription },
-        { property: "og:image", content: appConfig.ogImage },
-        { name: "twitter:image", content: appConfig.ogImage },
+        { name: "twitter:image", content: appConfig.ogImageAbsolute },
+        { name: "twitter:image:alt", content: `${appConfig.brandName} — Premium Oversized T-Shirts Made in India` },
       ],
       links: [
         { rel: "stylesheet", href: appCss },
-        { rel: "icon", href: favicon, type: "image/jpeg" },
+        // Favicon family — /favicon.ico served from public/
+        { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+        { rel: "icon", href: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" },
+        { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
+        { rel: "manifest", href: "/site.webmanifest" },
+        // Canonical
         { rel: "canonical", href: appConfig.siteUrl },
+        // Font preconnects
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
         {
           rel: "preconnect",
           href: "https://fonts.gstatic.com",
           crossOrigin: "anonymous",
         },
+        // DNS prefetch for external links
+        { rel: "dns-prefetch", href: "https://www.instagram.com" },
+        { rel: "dns-prefetch", href: "https://wa.me" },
         {
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
@@ -118,11 +146,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body
+        itemScope
+        itemType="https://schema.org/WebPage"
+      >
         {children}
         <Scripts />
       </body>

@@ -50,10 +50,10 @@ export default async function handler(req, res) {
   const body =
     req.method !== "GET" && req.method !== "HEAD"
       ? await new Promise((resolve) => {
-          const chunks = [];
-          req.on("data", (c) => chunks.push(c));
-          req.on("end", () => resolve(Buffer.concat(chunks)));
-        })
+        const chunks = [];
+        req.on("data", (c) => chunks.push(c));
+        req.on("end", () => resolve(Buffer.concat(chunks)));
+      })
       : undefined;
 
   // Call the TanStack Start Web Fetch handler
