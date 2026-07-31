@@ -53,8 +53,8 @@ const CURRENT_YEAR = new Date().getFullYear();
 /** FAQ items mirrored for structured data */
 const faqStructuredItems = [
   {
-    q: "When does the online store launch?",
-    a: "Our online cart is launching soon. Until then, every order is placed personally through Instagram DM or WhatsApp — you get a real human response within 24 hours.",
+    q: "How do I order ALPAZA T-shirts?",
+    a: "Every order is placed personally through Instagram DM or WhatsApp — you get a real human response within 24 hours.",
   },
   {
     q: "How do I order right now?",
@@ -62,7 +62,7 @@ const faqStructuredItems = [
   },
   {
     q: "Do you ship internationally?",
-    a: "Yes. We currently arrange international shipping on request. Full worldwide checkout will be available at launch.",
+    a: "Yes. We arrange worldwide international shipping on request. Message us on Instagram or WhatsApp to coordinate your delivery.",
   },
   {
     q: "What is your return policy?",
@@ -416,7 +416,7 @@ function AnnouncementBar() {
       <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2.5 text-center text-[11px] font-medium tracking-[0.18em] sm:text-xs">
         <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
         <span className="uppercase">
-          Online cart launching soon · Order now via Instagram or WhatsApp
+          PREMIUM OVERSIZED T-SHIRTS · ORDER NOW VIA INSTAGRAM OR WHATSAPP
         </span>
       </div>
     </div>
@@ -517,7 +517,7 @@ function Hero() {
         <div className="flex flex-col justify-center">
           <span className="eyebrow mb-6 inline-flex items-center gap-2" aria-hidden="true">
             <span className="inline-block h-px w-8 bg-foreground/50" />
-            Coming Soon · 2026
+            PREMIUM COLLECTION · 2026
           </span>
           <h1 className="font-display text-[3.25rem] leading-[0.95] tracking-tight text-foreground sm:text-7xl lg:text-[6.5rem]">
             Made for
@@ -561,7 +561,7 @@ function Hero() {
             {[
               ["24h", "Order response"],
               ["100%", "Premium fabrics"],
-              ["Global", "Shipping soon"],
+              ["Global", "Worldwide shipping"],
             ].map(([k, v]) => (
               <div key={v}>
                 <dt className="font-display text-2xl text-foreground sm:text-3xl">
@@ -588,14 +588,14 @@ function Hero() {
             <div className="absolute inset-x-6 bottom-6 z-10 flex items-end justify-between text-primary-foreground" aria-hidden="true">
               <div>
                 <p className="eyebrow !text-primary-foreground/70">
-                  Chapter 01
+                  Edition 01
                 </p>
                 <p className="font-display text-xl sm:text-[1.3rem]">
-                  The First Drop
+                  Signature Collection
                 </p>
               </div>
               <span className="rounded-full border border-primary-foreground/40 px-3 py-1 text-[9px] uppercase tracking-[0.25em]">
-                Preview
+                AVAILABLE NOW
               </span>
             </div>
           </div>
@@ -608,7 +608,7 @@ function Hero() {
 /* ---------- Marquee ---------- */
 
 function Marquee() {
-  const words = [tagline, "Coming Soon", "Minimal Luxury", "Est. Alpaza"];
+  const words = [tagline, "Available Now", "Minimal Luxury", "Est. Alpaza"];
   const line = [...words, ...words, ...words];
   return (
     <div className="border-y border-border bg-background py-5 overflow-hidden">
@@ -635,24 +635,28 @@ function Collection() {
       name: "Essential Oversized Tee",
       tag: "Essentials",
       note: "Signature weight cotton",
+      badge: "BESTSELLER",
     },
     {
       img: tee2,
       name: "Signature Heavyweight Tee",
       tag: "Heavyweight",
       note: "240 GSM combed cotton",
+      badge: "NEW ARRIVAL",
     },
     {
       img: tee3,
       name: "Classic Oversized Tee",
       tag: "Classic",
       note: "Premium combed cotton",
+      badge: "PREMIUM",
     },
     {
       img: tee4,
       name: "Everyday Oversized Tee",
       tag: "Everyday",
       note: "Soft-hand jersey knit",
+      badge: "SIGNATURE",
     },
   ];
   const reveal = useReveal();
@@ -665,7 +669,7 @@ function Collection() {
     >
       <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p className="eyebrow mb-3">Featured Collection · Preview</p>
+          <p className="eyebrow mb-3">Featured Collection · 2026</p>
           <h2 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
             The first pieces,
             <br />
@@ -675,7 +679,7 @@ function Collection() {
           </h2>
         </div>
         <p className="max-w-sm text-sm text-muted-foreground">
-          A tightly edited debut of premium oversized T-shirts made in India.
+          A tightly edited collection of premium oversized T-shirts made in India.
           Fewer pieces, engineered better — each one designed to move, layer and last.
         </p>
       </div>
@@ -700,7 +704,7 @@ function Collection() {
                 className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
               />
               <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-foreground backdrop-blur">
-                Coming Soon
+                {it.badge}
               </span>
             </div>
             <div className="p-5">
@@ -979,8 +983,8 @@ function Testimonials() {
 function Faq() {
   const items = [
     {
-      q: "When does the online store launch?",
-      a: "Our online cart is launching soon. Until then, every order is placed personally through Instagram DM or WhatsApp — you get a real human response within 24 hours.",
+      q: "How do I order ALPAZA T-shirts?",
+      a: "Every order is placed personally through Instagram DM or WhatsApp — you get a real human response within 24 hours.",
     },
     {
       q: "How do I order right now?",
@@ -988,7 +992,7 @@ function Faq() {
     },
     {
       q: "Do you ship internationally?",
-      a: "Yes. We currently arrange international shipping on request. Full worldwide checkout will be available at launch.",
+      a: "Yes. We arrange worldwide international shipping on request. Message us on Instagram or WhatsApp to coordinate your delivery.",
     },
     {
       q: "What's your return policy?",
@@ -1228,7 +1232,7 @@ function CustomPrint() {
   return (
     <section
       id="custom-print"
-      aria-label="Custom print on ALPAZA oversized T-shirts — coming soon"
+      aria-label="Custom print on ALPAZA oversized T-shirts — order now"
       className="bg-ink text-primary-foreground"
     >
       <div
@@ -1238,28 +1242,29 @@ function CustomPrint() {
         <div>
           <span className="eyebrow mb-6 inline-flex items-center gap-2 !text-primary-foreground/60">
             <span className="inline-block h-px w-8 bg-primary-foreground/40" />
-            Coming Soon
+            CUSTOM BRANDING
           </span>
           <h2 className="font-display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
             Print Your Own <span className="italic opacity-70">Design.</span>
           </h2>
           <p className="mt-4 font-display text-2xl italic text-primary-foreground/70 sm:text-3xl">
-            Coming Soon.
+            Available Now.
           </p>
           <p className="mt-8 max-w-lg text-base leading-relaxed text-primary-foreground/70 sm:text-lg">
-            Want your own design on a premium oversized tee? Soon you'll be able
-            to upload your artwork or logo and we'll print it on {brandName}{" "}
+            Want your own design on a premium oversized tee? Share your artwork or logo
+            with us via WhatsApp or Instagram and we'll print it on {brandName}{" "}
             premium-quality t-shirts with the same fabric, fit, and finish.
           </p>
-          <button
-            type="button"
-            disabled
-            aria-disabled="true"
-            className="mt-10 inline-flex cursor-not-allowed items-center gap-3 rounded-full border border-primary-foreground/30 px-6 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground/60"
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Order custom print oversized T-shirts on WhatsApp"
+            className="mt-10 inline-flex items-center gap-3 rounded-full border border-primary-foreground/60 px-6 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-primary-foreground hover:text-ink"
           >
             <Sparkles className="h-4 w-4" />
-            Notify Me
-          </button>
+            Order Custom Print
+          </a>
         </div>
         <ul className="grid content-center gap-4">
           {features.map((f) => (
@@ -1272,7 +1277,7 @@ function CustomPrint() {
                 <span className="text-primary-foreground/85">{f}</span>
               </span>
               <span className="text-[10px] uppercase tracking-[0.25em] text-primary-foreground/40">
-                Soon
+                Available
               </span>
             </li>
           ))}
@@ -1299,8 +1304,8 @@ function Footer() {
               className="object-contain"
             />
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              <b>Premium oversized T-shirts made in India.</b> Minimal luxury
-              essentials designed to move with you — launching online soon.
+              <b>Made for the Move.</b> Premium oversized essentials crafted for
+              everyday comfort, timeless style, and exceptional quality.
             </p>
             <div className="mt-6 flex gap-2">
               <a
