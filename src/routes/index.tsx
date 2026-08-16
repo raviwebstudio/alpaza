@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Instagram,
   MessageCircle,
@@ -14,16 +14,21 @@ import {
   Minus,
   Camera,
   Star,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
-import heroImg from "@/assets/hero.jpg";
-import c1 from "@/assets/collection-1.jpg";
-import c2 from "@/assets/collection-2.jpg";
-import c3 from "@/assets/collection-3.jpg";
-import tee1 from "@/assets/tee-1.jpg";
-import tee2 from "@/assets/tee-2.jpg";
-import tee3 from "@/assets/tee-3.jpg";
-import tee4 from "@/assets/tee-4.jpg";
-import fabricImg from "@/assets/fabric.jpg";
+import heroImg from "@/assets/hero.png";
+import c1 from "@/assets/collection-1.png";
+import c2 from "@/assets/collection-2.png";
+import c3 from "@/assets/collection-3.png";
+import c4 from "@/assets/collection-4.png";
+import c5 from "@/assets/collection-5.png";
+import c6 from "@/assets/collection-6.png";
+import tee1 from "@/assets/product-images/tee-1.png";
+import tee2 from "@/assets/product-images/tee-2.png";
+import tee3 from "@/assets/product-images/tee-3.png";
+import tee4 from "@/assets/product-images/tee-4.png";
+import fabricImg from "@/assets/fabric.webp";
 import logo from "@/assets/logo.png";
 import { useReveal } from "@/hooks/use-reveal";
 import { appConfig } from "@/lib/config";
@@ -582,7 +587,7 @@ function Hero() {
               height={1800}
               fetchPriority="high"
               decoding="async"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="hero-img absolute inset-0 h-full w-full object-cover"
               style={{ animation: "slow-zoom 1.8s ease-out both" }}
             />
             <div className="absolute inset-x-6 bottom-6 z-10 flex items-end justify-between text-primary-foreground" aria-hidden="true">
@@ -608,17 +613,25 @@ function Hero() {
 /* ---------- Marquee ---------- */
 
 function Marquee() {
-  const words = [tagline, "Available Now", "Minimal Luxury", "Est. Alpaza"];
-  const line = [...words, ...words, ...words];
+  const items = [
+    { text: "quietly distinct", sep: "✦" },
+    { text: "defined by detail", sep: "✦" },
+    { text: "alpaza", sep: "✦" },
+    { text: "made for the move", sep: "✦" },
+    { text: "premium essentials", sep: "✦" },
+    { text: "refined quality", sep: "✦" },
+    { text: "made with intent", sep: "✦" },
+  ];
+  const line = [...items, ...items, ...items, ...items];
   return (
-    <div className="border-y border-border bg-background py-5 overflow-hidden">
+    <div className="border-y py-5 overflow-hidden">
       <div className="marquee-track flex w-max items-center gap-14 whitespace-nowrap">
-        {line.map((w, i) => (
+        {line.map((item, i) => (
           <span key={i} className="flex items-center gap-14">
             <span className="font-display text-2xl italic text-foreground/80 sm:text-3xl">
-              {w}
+              {item.text}
             </span>
-            <span className="text-foreground/40">✦</span>
+            <span className="text-secondary-foreground">{item.sep}</span>
           </span>
         ))}
       </div>
@@ -629,34 +642,35 @@ function Marquee() {
 /* ---------- Collection ---------- */
 
 function Collection() {
+  const [selectedSizes, setSelectedSizes] = useState<Record<number, string>>({});
   const items = [
     {
       img: tee1,
-      name: "Essential Oversized Tee",
-      tag: "Essentials",
-      note: "Signature weight cotton",
-      badge: "BESTSELLER",
+      name: "Signature Black Oversized Tee",
+      tag: "SIGNATURE",
+      note: "100% Premium Cotton",
+      badge: "SIGNATURE",
     },
     {
       img: tee2,
-      name: "Signature Heavyweight Tee",
-      tag: "Heavyweight",
-      note: "240 GSM combed cotton",
-      badge: "NEW ARRIVAL",
+      name: "Essential White Oversized Tee",
+      tag: "ESSENTIALS",
+      note: "100% Premium Cotton",
+      badge: "BESTSELLER",
     },
     {
       img: tee3,
-      name: "Classic Oversized Tee",
-      tag: "Classic",
-      note: "Premium combed cotton",
-      badge: "PREMIUM",
+      name: "Deep Green Oversized Tee",
+      tag: "CORE",
+      note: "100% Premium Cotton",
+      badge: "NEW ARRIVAL",
     },
     {
       img: tee4,
-      name: "Everyday Oversized Tee",
-      tag: "Everyday",
-      note: "Soft-hand jersey knit",
-      badge: "SIGNATURE",
+      name: "Rich Maroon Oversized Tee",
+      tag: "EDITION",
+      note: "100% Premium Cotton",
+      badge: "LIMITED EDITION",
     },
   ];
   const reveal = useReveal();
@@ -707,12 +721,43 @@ function Collection() {
                 {it.badge}
               </span>
             </div>
-            <div className="p-5">
+            <div className="px-5 pb-5 pt-1.5">
+              <div className="mb-3 flex items-center justify-between">
+                <span className="eyebrow text-[10px] text-muted-foreground">Select Size</span>
+                <div className="flex items-center gap-1.5">
+                  {["M", "L", "XL"].map((sz) => (
+                    <button
+                      key={sz}
+                      type="button"
+                      onClick={() => setSelectedSizes((prev) => ({ ...prev, [i]: sz }))}
+                      className={`h-6 min-w-[2rem] rounded-sm border px-2 text-[10px] font-mono font-medium transition-all ${
+                        (selectedSizes[i] || "L") === sz
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-border/80 bg-background text-foreground/70 hover:border-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {sz}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <a
+                href={`${whatsappUrl.split("?")[0]}?text=${encodeURIComponent(
+                  `Hi ${brandName}, I would like to order the ${it.name} (Size ${selectedSizes[i] || "L"}).`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Order ${it.name} on WhatsApp`}
+                className="mb-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-foreground/20 bg-background px-4 py-2.5 text-[11px] font-medium tracking-[0.18em] text-foreground uppercase transition-all hover:bg-foreground hover:text-background"
+              >
+                <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                ORDER ON WHATSAPP
+              </a>
               <p className="eyebrow">
                 {it.tag} · N°{String(i + 1).padStart(2, "0")}
               </p>
               <h3 className="mt-1 font-display text-xl">{it.name}</h3>
-              <p className="text-xs text-muted-foreground">{it.note}</p>
+              <p className="mt-2 text-xs text-muted-foreground">{it.note}</p>
             </div>
           </article>
         ))}
@@ -734,8 +779,13 @@ function About() {
         <div>
           <p className="eyebrow mb-4">About {brandName}</p>
           <h2 className="font-display text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
-            A quiet study in <span className="italic">motion</span> and
-            material.
+            A quiet study
+            <br />
+            in <span className="italic">movement</span>,
+            <br />
+            form,
+            <br />
+            and material.
           </h2>
         </div>
         <div className="space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
@@ -891,6 +941,18 @@ function Fabric() {
 
 function Testimonials() {
   const reveal = useReveal();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const scrollAmount = scrollRef.current.clientWidth;
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
   const items = [
     {
       quote:
@@ -917,61 +979,89 @@ function Testimonials() {
       className="bg-secondary py-24 lg:py-32"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
-        <div className="mb-14 max-w-2xl">
-          <p className="eyebrow mb-3">Testimonials</p>
-          <h2 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
-            What our customers
-            <br />
-            <span className="italic text-muted-foreground">say.</span>
-          </h2>
-        </div>
-        <div
-          ref={reveal.ref}
-          role="list"
-          aria-label="Customer reviews"
-          className={`${reveal.className} grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4`}
-        >
-          {items.map((t) => (
-            <figure
-              key={t.name}
-              role="listitem"
-              aria-label={`Review by ${t.name}`}
-              className="flex h-full flex-col justify-between rounded-sm border border-border bg-background p-7 transition-shadow duration-500 hover:shadow-xl"
+        <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
+          <div className="max-w-2xl">
+            <p className="eyebrow mb-3">Testimonials</p>
+            <h2 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
+              What our customers
+              <br />
+              <span className="italic text-muted-foreground">say.</span>
+            </h2>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => handleScroll("left")}
+              aria-label="Previous testimonials"
+              className="grid h-10 w-10 place-items-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-foreground hover:text-background"
             >
-              <div>
-                <div
-                  className="flex items-center gap-1"
-                  aria-label="5 out of 5 stars"
-                  style={{ color: "#d08f0bff" }}
-                >
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-current"
-                      strokeWidth={0}
-                    />
-                  ))}
-                </div>
-                <blockquote className="mt-5 font-display text-lg leading-snug text-foreground">
-                  “{t.quote}”
-                </blockquote>
-              </div>
-              <figcaption className="mt-8 flex items-center gap-3 border-t border-border pt-5">
-                <span
-                  aria-hidden
-                  className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-foreground font-display text-sm text-background"
-                >
-                  {t.name.charAt(0)}
-                </span>
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => handleScroll("right")}
+              aria-label="Next testimonials"
+              className="grid h-10 w-10 place-items-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-foreground hover:text-background"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+        <div ref={reveal.ref} className={reveal.className}>
+          <div
+            ref={scrollRef}
+            role="list"
+            aria-label="Customer reviews"
+            className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 pt-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {items.map((t) => (
+              <figure
+                key={t.name}
+                role="listitem"
+                aria-label={`Review by ${t.name}`}
+                className="flex h-full w-[85vw] min-w-[280px] shrink-0 snap-start flex-col justify-between rounded-sm border border-border/80 bg-background p-7 transition-all duration-500 hover:border-foreground/30 hover:shadow-xl sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)]"
+              >
                 <div>
-                  <p className="text-sm font-medium text-foreground">
-                    — {t.name}
-                  </p>
-                  <p className="eyebrow mt-0.5">Verified customer</p>
+                  <div className="flex items-center justify-between gap-2 border-b border-border/40 pb-4">
+                    <div
+                      className="flex items-center gap-1 text-[#d08f0b]"
+                      aria-label="5 out of 5 stars"
+                    >
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star
+                          key={i}
+                          className="h-3.5 w-3.5 fill-current"
+                          strokeWidth={0}
+                        />
+                      ))}
+                    </div>
+                    <span className="eyebrow text-[9px] tracking-[0.2em] text-muted-foreground/70 uppercase">
+                      Verified
+                    </span>
+                  </div>
+                  <blockquote className="mt-5 font-display text-lg leading-relaxed text-foreground">
+                    “{t.quote}”
+                  </blockquote>
                 </div>
-              </figcaption>
-            </figure>
-          ))}
+                <figcaption className="mt-7 border-t border-border/60 pt-5">
+                  <div className="flex items-center gap-3">
+                    <span
+                      aria-hidden
+                      className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-foreground font-display text-xs font-medium tracking-wider text-background"
+                    >
+                      {t.name.charAt(0)}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium tracking-tight text-foreground">
+                        {t.name}
+                      </p>
+                      <p className="eyebrow mt-0.5 text-[10px] text-muted-foreground">
+                        {(t as any).title || (t as any).position || "Verified Customer"}
+                      </p>
+                    </div>
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -1061,76 +1151,6 @@ function Faq() {
   );
 }
 
-/* ---------- Gallery ---------- */
-
-function Gallery() {
-  /** Descriptive alt texts for each gallery tile position */
-  const galleryAlts = [
-    `${brandName} collection editorial — oversized streetwear lookbook`,
-    `${brandName} hero campaign — model in premium minimal luxury apparel`,
-    `${brandName} lookbook image — premium cotton oversized T-shirt detail`,
-    `${brandName} collection editorial — seasonal streetwear from India`,
-    `${brandName} fabric close-up — premium woven cotton detail`,
-    `${brandName} campaign — oversized fit lifestyle photography`,
-  ];
-  const tiles = [c1, heroImg, c3, c2, fabricImg, c1];
-  const reveal = useReveal();
-
-  return (
-    <section
-      id="gallery"
-      aria-label="ALPAZA Instagram gallery — follow the movement"
-      className="bg-secondary py-24 lg:py-32"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
-        <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="eyebrow mb-3">{instagramHandle} · Instagram</p>
-            <h2 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
-              Follow the <span className="italic">movement.</span>
-            </h2>
-          </div>
-          <a
-            href={instagramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Visit ${brandName} on Instagram — @${instagramHandle}`}
-            className="group inline-flex items-center gap-2 text-sm font-medium tracking-[0.2em] uppercase text-foreground"
-          >
-            Visit Instagram
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
-          </a>
-        </div>
-        <div
-          ref={reveal.ref}
-          className={`${reveal.className} grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-6`}
-        >
-          {tiles.map((src, i) => (
-            <a
-              key={i}
-              href={instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative block aspect-square overflow-hidden rounded-sm bg-background"
-              aria-label={`View ALPAZA on Instagram — image ${i + 1}`}
-            >
-              <img
-                src={src}
-                alt={galleryAlts[i] ?? `${brandName} Instagram post ${i + 1}`}
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 grid place-items-center bg-foreground/0 opacity-0 transition-all duration-300 group-hover:bg-foreground/40 group-hover:opacity-100" aria-hidden="true">
-                <Camera className="h-5 w-5 text-background" />
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------- Contact ---------- */
 
@@ -1216,8 +1236,6 @@ function ContactRow({
   );
 }
 
-/* ---------- Footer ---------- */
-
 /* ---------- Custom Print ---------- */
 
 function CustomPrint() {
@@ -1286,7 +1304,79 @@ function CustomPrint() {
     </section>
   );
 }
+/* ---------- Gallery ---------- */
 
+function Gallery() {
+  /** Descriptive alt texts for each gallery tile position */
+  const galleryAlts = [
+    `${brandName} collection editorial — oversized streetwear lookbook`,
+    `${brandName} hero campaign — model in premium minimal luxury apparel`,
+    `${brandName} lookbook image — premium cotton oversized T-shirt detail`,
+    `${brandName} collection editorial — seasonal streetwear from India`,
+    `${brandName} fabric close-up — premium woven cotton detail`,
+    `${brandName} campaign — oversized fit lifestyle photography`,
+  ];
+  const tiles = [c1, c2, c3, c4, c5, c6];
+  const reveal = useReveal();
+
+  return (
+    <section
+      id="gallery"
+      aria-label="ALPAZA Instagram gallery — follow the movement"
+      className="bg-secondary py-24 lg:py-32"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+        <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="eyebrow mb-3">{instagramHandle} · Instagram</p>
+            <h2 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
+              Follow the <span className="italic">movement.</span>
+            </h2>
+          </div>
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${brandName} on Instagram — @${instagramHandle}`}
+            className="group inline-flex items-center gap-2 text-sm font-medium tracking-[0.2em] uppercase text-foreground"
+          >
+            Visit Instagram
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+          </a>
+        </div>
+        <div
+          ref={reveal.ref}
+          className={`${reveal.className} grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-6`}
+        >
+          {tiles.map((src, i) => (
+            <a
+              key={i}
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative block aspect-square w-full overflow-hidden rounded-sm bg-background"
+              aria-label={`View ALPAZA on Instagram — image ${i + 1}`}
+            >
+              <img
+                src={src}
+                alt={galleryAlts[i] ?? `${brandName} Instagram post ${i + 1}`}
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+              <div className="absolute inset-0 grid place-items-center bg-foreground/0 opacity-0 transition-all duration-300 group-hover:bg-foreground/40 group-hover:opacity-100" aria-hidden="true">
+                <Camera className="h-5 w-5 text-background" />
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Footer ---------- */
 function Footer() {
   return (
     <footer
