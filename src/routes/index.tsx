@@ -730,11 +730,10 @@ function Collection() {
                       key={sz}
                       type="button"
                       onClick={() => setSelectedSizes((prev) => ({ ...prev, [i]: sz }))}
-                      className={`h-6 min-w-[2rem] rounded-sm border px-2 text-[10px] font-mono font-medium transition-all ${
-                        (selectedSizes[i] || "L") === sz
+                      className={`h-6 min-w-[2rem] rounded-sm border px-2 text-[10px] font-mono font-medium transition-all ${(selectedSizes[i] || "L") === sz
                           ? "border-foreground bg-foreground text-background"
                           : "border-border/80 bg-background text-foreground/70 hover:border-foreground hover:text-foreground"
-                      }`}
+                        }`}
                     >
                       {sz}
                     </button>
