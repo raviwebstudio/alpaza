@@ -219,3 +219,9 @@ img {
   outline-offset: 3px;
   border-radius: 2px;
 }
+
+/* ---------- Footer Logo ---------- */
+.footer-logo {
+  width: 50% !important;
+  height: auto;
+}

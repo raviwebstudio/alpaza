@@ -34,8 +34,17 @@ import csGreen from "@/assets/03-green-tee.png";
 import csMaroon from "@/assets/04-maroon-tee.png";
 import fabricImg from "@/assets/fabric.webp";
 import logo from "@/assets/logo.png";
+import bannerBgImage from "@/assets/bg-image.webp";
 import { useReveal } from "@/hooks/use-reveal";
 import { appConfig } from "@/lib/config";
+
+/**
+ * ============================================================================
+ * Visual Banner Background Image Placeholder
+ * Swap or update the imported image / URL below to replace the banner anytime.
+ * ============================================================================
+ */
+const BANNER_IMAGE_URL = bannerBgImage;
 
 const {
   brandName,
@@ -401,6 +410,7 @@ function LandingPage() {
         <Collection />
         <About />
         <ComingSoon />
+        <BannerShowcase />
         <WhyUs />
         <Fabric />
         {/* <Testimonials /> */}
@@ -428,7 +438,7 @@ function AnnouncementBar() {
       <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2.5 text-center text-[11px] font-medium tracking-[0.18em] sm:text-xs">
         <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
         <span className="uppercase">
-          PREMIUM OVERSIZED T-SHIRTS · ORDER NOW VIA INSTAGRAM OR WHATSAPP
+          ALPAZA - MADE FOR THE MOVE · PREMIUM OVERSIZED T-SHIRTS · ORDER NOW
         </span>
       </div>
     </div>
@@ -501,14 +511,11 @@ function Nav() {
             <Instagram className="h-4 w-4" aria-hidden="true" />
           </a>
           <a
-            href={whatsappUrl}
-            aria-label="Place an order via WhatsApp"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden h-9 items-center gap-2 rounded-full bg-foreground px-4 text-xs font-medium tracking-widest text-background transition-transform hover:scale-[1.02] sm:inline-flex"
+            href="#collection"
+            aria-label="Checkout ALPAZA collection"
+            className="inline-flex h-9 items-center justify-center rounded-full bg-foreground px-4 text-xs font-medium tracking-widest text-background transition-transform hover:scale-[1.02]"
           >
-            <MessageCircle className="h-4 w-4" aria-hidden="true" />
-            ORDER
+            CHECKOUT
           </a>
         </div>
       </div>
@@ -841,7 +848,40 @@ function ComingSoon() {
   );
 }
 
+/* ---------- Full-Width Visual Banner Section ---------- */
+
+function BannerShowcase() {
+  const reveal = useReveal<HTMLAnchorElement>();
+
+  return (
+    <section
+      aria-label="ALPAZA Visual Showcase"
+      className=""
+    >
+      <a
+        ref={reveal.ref}
+        href="https://www.flipkart.com/alpaza-solid-men-round-neck-white-t-shirt/p/itm2dc831f7c71f9?pid=TSHHRE86VYEYCG8H&marketplace=FLIPKART&lid=LSTTSHHRE86VYEYCG8HFAGYJC&pageUID=1790492603194"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Shop ALPAZA on Flipkart"
+        className={`${reveal.className} block w-full overflow-hidden cursor-pointer shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-opacity duration-300 hover:opacity-95`}
+      >
+        <img
+          src={BANNER_IMAGE_URL}
+          alt="ALPAZA luxury collection showcase banner"
+          width={1600}
+          height={700}
+          loading="lazy"
+          decoding="async"
+          className="h-[380px] w-full object-cover md:h-[500px] lg:h-[700px]"
+        />
+      </a>
+    </section>
+  );
+}
+
 /* ---------- About ---------- */
+
 
 function About() {
   const reveal = useReveal();
@@ -1235,11 +1275,11 @@ function Contact() {
     <section
       id="contact"
       aria-label="Contact ALPAZA — order, wholesale, and press enquiries"
-      className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10 lg:py-32"
+      className="bg-secondary"
     >
       <div
         ref={reveal.ref}
-        className={`${reveal.className} grid grid-cols-1 gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20`}
+        className={`${reveal.className} mx-auto grid max-w-7xl grid-cols-1 gap-14 px-4 py-24 sm:px-6 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:px-10 lg:py-32`}
       >
         <div>
           <p className="eyebrow mb-4">Contact</p>
@@ -1268,7 +1308,7 @@ function Contact() {
             href={whatsappUrl}
             icon={MessageCircle}
             label="WhatsApp · Fastest reply"
-            value={`Message ${displayPhoneNumber}`}
+            value="Message us on WhatsApp"
           />
           <ContactRow href="#" icon={MapPin} label="Studio" value={location} />
         </div>
@@ -1456,50 +1496,119 @@ function Footer() {
   return (
     <footer
       aria-label="ALPAZA site footer"
-      className="border-t border-border bg-background"
+      className="w-full bg-secondary px-4 pb-8 pt-4 sm:px-6 sm:pb-12 lg:px-10 lg:pb-16"
     >
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10 lg:py-24">
-        <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-center">
-          <div>
+      <div className="mx-auto max-w-7xl rounded-[32px] border border-border/80 bg-white px-8 py-16 sm:px-12 sm:py-20 lg:px-16 lg:py-20 overflow-hidden shadow-[0_4px_30px_-6px_rgba(0,0,0,0.03)]">
+        {/* Zone 1: Top Info Row */}
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 pb-14 sm:pb-16 border-b border-border/60">
+          {/* Left Column: Brand & Tagline */}
+          <div className="lg:col-span-6">
             <img
               src={logo}
               alt={`${brandName} logo`}
-              width={160}
-              height={28}
-              className="h-7 w-auto object-contain"
+              className="footer-logo !w-1/2 h-auto object-contain"
             />
-            <p className="mt-4 font-display text-lg tracking-tight text-foreground">
-              {tagline}.
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Premium oversized essentials crafted in India.
+            {/* <p className="mt-4 font-display text-xl tracking-tight text-foreground">
+              Made for the Move.
+            </p> */}
+            <p className="mt-3 pt-4 max-w-xs text-xs text-muted-foreground leading-relaxed">
+              We create premium oversized T-shirts and luxury cotton apparel that blend refined silhouettes, premium fabrics, and meticulous finishing for a modern, effortless look.
             </p>
           </div>
-          <div className="flex items-center gap-3">
-            <a
-              href={instagramUrl}
-              aria-label={`Follow ${brandName} on Instagram`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="grid h-11 w-11 place-items-center rounded-full border border-border text-foreground transition-colors hover:bg-foreground hover:text-background"
-            >
-              <Instagram className="h-4 w-4" aria-hidden="true" />
-            </a>
-            <a
-              href={whatsappUrl}
-              aria-label={`Order ${brandName} via WhatsApp`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="grid h-11 w-11 place-items-center rounded-full border border-border text-foreground transition-colors hover:bg-foreground hover:text-background"
-            >
-              <MessageCircle className="h-4 w-4" aria-hidden="true" />
-            </a>
+
+          {/* Center Column: Explore Links */}
+          <div className="lg:col-span-3">
+            <p className="eyebrow mb-4 text-xs font-semibold tracking-[0.2em]">Explore</p>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <a
+                  href="#collection"
+                  className="text-foreground/75 transition-colors hover:text-foreground"
+                >
+                  Collection
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  className="text-foreground/75 transition-colors hover:text-foreground"
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#fabric"
+                  className="text-foreground/75 transition-colors hover:text-foreground"
+                >
+                  Fabric
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  className="text-foreground/75 transition-colors hover:text-foreground"
+                >
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Right Column: Connect Links */}
+          <div className="lg:col-span-3">
+            <p className="eyebrow mb-4 text-xs font-semibold tracking-[0.2em]">Connect</p>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <a
+                  href={instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-foreground/75 transition-colors hover:text-foreground"
+                >
+                  <span>Instagram</span>
+                  <span className="text-muted-foreground/60">→</span>
+                  <span className="font-medium text-foreground">@alpaza.wear</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.flipkart.com/alpaza-solid-men-round-neck-white-t-shirt/p/itm2dc831f7c71f9?pid=TSHHRE86VYEYCG8H&marketplace=FLIPKART&lid=LSTTSHHRE86VYEYCG8HFAGYJC&pageUID=1790492603194"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-foreground/75 transition-colors hover:text-foreground"
+                >
+                  <span>Flipkart</span>
+                  <span className="text-muted-foreground/60">→</span>
+                  <span className="font-medium text-foreground">Shop now on Flipkart</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-        <div className="mt-20 border-t border-border/60 pt-8 text-center">
-          <p className="text-xs text-muted-foreground tracking-[0.25em] uppercase">
-            © 2026 {brandName}
-          </p>
+
+        {/* Zone 2: Hero Typography — Huge ALPAZA Wordmark */}
+        {/* <div className="relative overflow-hidden py-10 sm:py-14 lg:py-16 select-none">
+          <div className="flex justify-center translate-y-[10%]">
+            <span className="font-display text-[18vw] sm:text-[19vw] lg:text-[210px] xl:text-[230px] font-medium tracking-[-0.04em] leading-none text-foreground uppercase whitespace-nowrap text-center">
+              ALPAZA
+            </span>
+          </div>
+        </div> */}
+
+        {/* Zone 3: Bottom Legal Row */}
+        <div className="border-t border-border/60 pt-8 sm:pt-10">
+          <div className="flex flex-col items-center justify-between gap-4 text-[11px] sm:text-xs text-muted-foreground sm:flex-row">
+            <p className="tracking-widest uppercase">
+              © 2026 {brandName}
+            </p>
+            <p className="eyebrow !text-muted-foreground/80 tracking-[0.25em] text-center">
+              MADE FOR THE MOVE
+            </p>
+            <p className="tracking-wider text-muted-foreground/80 sm:text-right">
+              MADE IN INDIA
+            </p>
+          </div>
         </div>
       </div>
     </footer>
