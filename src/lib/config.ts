@@ -27,7 +27,7 @@ const seoTitle = getEnv(
 );
 const seoDescription = getEnv(
   "VITE_SEO_DESCRIPTION",
-  "ALPAZA is a premium oversized T-shirt brand made in India. Shop minimal luxury streetwear crafted from 100% premium cotton. B2B wholesale, B2C retail, and custom print available. Order via Instagram or WhatsApp.",
+  "ALPAZA curates premium oversized T-shirts sourced from trusted manufacturing partners in India. Timeless essentials, selected for everyday comfort and sold through leading online platforms.",
 );
 
 const whatsappMessage = `Hi ${brandName}, I'd like to place an order.`;
@@ -57,7 +57,7 @@ export const appConfig = {
   instagramHandle,
   /** Comprehensive keyword set covering all target search terms */
   seoKeywords:
-    "ALPAZA, premium oversized t-shirts, oversized t-shirts India, men's oversized tee, premium cotton t-shirts, streetwear brand India, minimal luxury clothing, Made in India apparel, apparel manufacturer India, wholesale t-shirts India, B2B clothing supplier, B2C fashion brand, bulk t-shirt order, custom print t-shirts, oversized fit tees, 240 GSM t-shirt, Meerut clothing brand, UP streetwear, premium essentials, made for the move",
+    "ALPAZA, premium oversized t-shirts, oversized t-shirts India, men's oversized tee, premium cotton t-shirts, curated streetwear brand India, minimal luxury clothing, Made in India apparel, oversized fit tees, 180 GSM t-shirt, Meerut clothing brand, UP streetwear, premium essentials, made for the move",
   /** Twitter/X handle (without @) */
   twitterHandle: "alpaza_wear",
   /** Locale for Open Graph */

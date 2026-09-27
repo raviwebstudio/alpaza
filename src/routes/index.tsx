@@ -130,7 +130,7 @@ export const Route = createFileRoute("/")({
           name: brandName,
           alternateName: "Alpaza Wear",
           description:
-            "ALPAZA is a premium oversized T-shirt brand and apparel manufacturer based in Meerut, India. We offer B2B wholesale and B2C retail of premium cotton streetwear.",
+            "ALPAZA curates premium oversized T-shirts sourced from trusted manufacturing partners in India. Timeless essentials, selected for everyday comfort and sold through leading online platforms.",
           slogan: `${tagline}.`,
           url: siteUrl,
           logo: {
@@ -222,7 +222,7 @@ export const Route = createFileRoute("/")({
           url: siteUrl,
           name: "ALPAZA — Premium Oversized T-Shirts | Made in India",
           description:
-            "ALPAZA is a premium oversized T-shirt brand made in India. Shop minimal luxury streetwear crafted from 100% premium cotton. B2B wholesale, B2C retail, and custom print available.",
+            "ALPAZA curates premium oversized T-shirts sourced from trusted manufacturing partners in India. Timeless essentials, selected for everyday comfort and sold through leading online platforms.",
           isPartOf: {
             "@id": `${siteUrl}/#website`,
           },
@@ -544,9 +544,7 @@ function Hero() {
             <span className="italic text-muted-foreground">the Move.</span>
           </h1>
           <p className="mt-8 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
-            {brandName} is a minimal luxury label engineered around motion —
-            refined silhouettes, considered fabrics, and pieces built to move
-            with you, not against you.
+            ALPAZA curates premium oversized T-shirts sourced from trusted manufacturing partners in India. Timeless essentials, selected for everyday comfort and sold through leading online platforms.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
@@ -905,10 +903,7 @@ function About() {
         </div>
         <div className="space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
           <p>
-            {brandName} is a premium apparel brand and clothing manufacturer redefining everyday essentials. We create premium oversized T-shirts and luxury cotton apparel that blend refined silhouettes, premium fabrics, and meticulous finishing for a modern, effortless look.
-          </p>
-          <p>
-            Proudly Made in India, {brandName} serves both retail (B2C) customers and wholesale (B2B) partners, offering premium apparel manufacturing, custom branding, and bulk production for fashion brands, startups, retailers, and businesses.
+            We work with verified apparel manufacturers to source high-quality oversized T-shirts. Every piece is carefully selected for its fabric, fit, and finish before becoming part of the ALPAZA collection.
           </p>
           <div className="grid grid-cols-2 gap-6 pt-4">
             <Stat k="2026" v="Est. Year" />
@@ -1028,8 +1023,7 @@ function Fabric() {
             <span className="italic opacity-70">Everything follows.</span>
           </h2>
           <p className="mt-6 max-w-lg text-base leading-relaxed text-primary-foreground/70 sm:text-lg">
-            Each fabric is chosen for how it feels on the second wear
-            — and the two-hundredth.
+            Premium 180 GSM cotton tees chosen for durability, comfort, and everyday wear. Quality comes from thoughtful sourcing and consistent standards.
           </p>
           <ul className="mt-10 grid gap-4">
             {[
@@ -1274,7 +1268,7 @@ function Contact() {
   return (
     <section
       id="contact"
-      aria-label="Contact ALPAZA — order, wholesale, and press enquiries"
+      aria-label="Contact ALPAZA — order, customer support, and press enquiries"
       className="bg-secondary"
     >
       <div
@@ -1291,7 +1285,7 @@ function Contact() {
             </span>
           </h2>
           <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
-            For orders, sizing help, press inquiries, or wholesale B2B supply —
+            For orders, sizing help, customer support, or press inquiries —
             reach us on the channels below. A real member of the studio responds
             within 24 hours.
           </p>
@@ -1512,7 +1506,7 @@ function Footer() {
               Made for the Move.
             </p> */}
             <p className="mt-3 pt-4 max-w-xs text-xs text-muted-foreground leading-relaxed">
-              We create premium oversized T-shirts and luxury cotton apparel that blend refined silhouettes, premium fabrics, and meticulous finishing for a modern, effortless look.
+              Curated premium oversized essentials for modern everyday wear.
             </p>
           </div>
 
