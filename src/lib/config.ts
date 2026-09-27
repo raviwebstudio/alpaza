@@ -20,7 +20,7 @@ const whatsappBaseUrl = getEnv(
   "https://wa.me/919259880496",
 );
 const phoneNumber = getEnv("VITE_PHONE_NUMBER", "+919259880496");
-const location = getEnv("VITE_LOCATION", "Meerut, Uttar Pradesh, India");
+const location = getEnv("VITE_LOCATION", "Meerut, U.P., India");
 const seoTitle = getEnv(
   "VITE_SEO_TITLE",
   "ALPAZA — Premium Oversized T-Shirts | Made in India",

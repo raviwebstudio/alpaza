@@ -24,10 +24,14 @@ import c3 from "@/assets/collection-3.png";
 import c4 from "@/assets/collection-4.png";
 import c5 from "@/assets/collection-5.png";
 import c6 from "@/assets/collection-6.png";
-import tee1 from "@/assets/product-images/tee-1.png";
-import tee2 from "@/assets/product-images/tee-2.png";
-import tee3 from "@/assets/product-images/tee-3.png";
-import tee4 from "@/assets/product-images/tee-4.png";
+import tee1 from "@/assets/tee-1.webp";
+import tee2 from "@/assets/tee-2.webp";
+import tee3 from "@/assets/tee-3.webp";
+import tee4 from "@/assets/tee-4.webp";
+import csBlack from "@/assets/01-black-tee.png";
+import csWhite from "@/assets/02-white-tee.png";
+import csGreen from "@/assets/03-green-tee.png";
+import csMaroon from "@/assets/04-maroon-tee.png";
 import fabricImg from "@/assets/fabric.webp";
 import logo from "@/assets/logo.png";
 import { useReveal } from "@/hooks/use-reveal";
@@ -396,13 +400,16 @@ function LandingPage() {
         <Marquee />
         <Collection />
         <About />
+        <ComingSoon />
         <WhyUs />
         <Fabric />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <Faq />
-        <Gallery />
+        {/* Hidden: Follow the Movement (Instagram Gallery) */}
+        {/* <Gallery /> */}
         <Contact />
-        <CustomPrint />
+        {/* Hidden: Custom Branding / Print Your Own Design */}
+        {/* <CustomPrint /> */}
       </main>
       <Footer />
     </div>
@@ -537,25 +544,15 @@ function Hero() {
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
-              href={instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Order ALPAZA premium oversized T-shirts on Instagram"
-              className="group inline-flex items-center gap-3 rounded-full bg-foreground px-6 py-3.5 text-xs font-medium tracking-[0.2em] text-background uppercase transition-transform hover:scale-[1.02]"
+              href="#about"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              aria-label="More information about ALPAZA"
+              className="inline-flex h-12 items-center justify-center rounded-full border border-foreground bg-transparent px-8 text-xs font-medium tracking-[0.2em] text-foreground uppercase transition-all duration-300 hover:bg-foreground hover:text-background"
             >
-              <Instagram className="h-4 w-4" aria-hidden="true" />
-              Order on Instagram
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
-            </a>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Order ALPAZA premium oversized T-shirts on WhatsApp"
-              className="group inline-flex items-center gap-3 rounded-full border border-foreground px-6 py-3.5 text-xs font-medium tracking-[0.2em] text-foreground uppercase transition-colors hover:bg-foreground hover:text-background"
-            >
-              <MessageCircle className="h-4 w-4" aria-hidden="true" />
-              WhatsApp Order
+              More Info
             </a>
           </div>
 
@@ -642,7 +639,6 @@ function Marquee() {
 /* ---------- Collection ---------- */
 
 function Collection() {
-  const [selectedSizes, setSelectedSizes] = useState<Record<number, string>>({});
   const items = [
     {
       img: tee1,
@@ -650,6 +646,7 @@ function Collection() {
       tag: "SIGNATURE",
       note: "100% Premium Cotton",
       badge: "SIGNATURE",
+      link: "https://www.flipkart.com/alpaza-solid-men-round-neck-black-t-shirt/p/itm95c8fc1c4eda9",
     },
     {
       img: tee2,
@@ -657,6 +654,7 @@ function Collection() {
       tag: "ESSENTIALS",
       note: "100% Premium Cotton",
       badge: "BESTSELLER",
+      link: "https://www.flipkart.com/alpaza-solid-men-round-neck-white-t-shirt/p/itm95c8fc1c4eda9",
     },
     {
       img: tee3,
@@ -664,6 +662,7 @@ function Collection() {
       tag: "CORE",
       note: "100% Premium Cotton",
       badge: "NEW ARRIVAL",
+      link: "https://www.flipkart.com/alpaza-solid-men-round-neck-dark-green-t-shirt/p/itm95c8fc1c4eda9",
     },
     {
       img: tee4,
@@ -671,6 +670,7 @@ function Collection() {
       tag: "EDITION",
       note: "100% Premium Cotton",
       badge: "LIMITED EDITION",
+      link: "https://www.flipkart.com/alpaza-solid-men-round-neck-maroon-t-shirt/p/itm95c8fc1c4eda9",
     },
   ];
   const reveal = useReveal();
@@ -721,39 +721,115 @@ function Collection() {
                 {it.badge}
               </span>
             </div>
-            <div className="px-5 pb-5 pt-1.5">
-              <div className="mb-3 flex items-center justify-between">
-                <span className="eyebrow text-[10px] text-muted-foreground">Select Size</span>
-                <div className="flex items-center gap-1.5">
-                  {["M", "L", "XL"].map((sz) => (
-                    <button
-                      key={sz}
-                      type="button"
-                      onClick={() => setSelectedSizes((prev) => ({ ...prev, [i]: sz }))}
-                      className={`h-6 min-w-[2rem] rounded-sm border px-2 text-[10px] font-mono font-medium transition-all ${(selectedSizes[i] || "L") === sz
-                          ? "border-foreground bg-foreground text-background"
-                          : "border-border/80 bg-background text-foreground/70 hover:border-foreground hover:text-foreground"
-                        }`}
-                    >
-                      {sz}
-                    </button>
-                  ))}
-                </div>
-              </div>
+            <div className="p-5">
               <a
-                href={`${whatsappUrl.split("?")[0]}?text=${encodeURIComponent(
-                  `Hi ${brandName}, I would like to order the ${it.name} (Size ${selectedSizes[i] || "L"}).`
-                )}`}
+                href={it.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Order ${it.name} on WhatsApp`}
+                aria-label={`Order ${it.name}`}
                 className="mb-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-foreground/20 bg-background px-4 py-2.5 text-[11px] font-medium tracking-[0.18em] text-foreground uppercase transition-all hover:bg-foreground hover:text-background"
               >
-                <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
-                ORDER ON WHATSAPP
+                Order
               </a>
               <p className="eyebrow">
                 {it.tag} · N°{String(i + 1).padStart(2, "0")}
+              </p>
+              <h3 className="mt-1 font-display text-xl">{it.name}</h3>
+              <p className="mt-2 text-xs text-muted-foreground">{it.note}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Coming Soon ---------- */
+
+function ComingSoon() {
+  const items = [
+    {
+      img: csBlack,
+      name: "Sand Beige Oversized Tee",
+      tag: "EDITION",
+      note: "100% Premium Cotton · In Development",
+    },
+    {
+      img: csWhite,
+      name: "Charcoal Grey Oversized Tee",
+      tag: "EDITION",
+      note: "100% Premium Cotton · In Development",
+    },
+    {
+      img: csGreen,
+      name: "Navy Blue Oversized Tee",
+      tag: "EDITION",
+      note: "100% Premium Cotton · In Development",
+    },
+    {
+      img: csMaroon,
+      name: "Stone Brown Oversized Tee",
+      tag: "EDITION",
+      note: "100% Premium Cotton · In Development",
+    },
+  ];
+  const reveal = useReveal();
+
+  return (
+    <section
+      id="coming-soon"
+      aria-label="ALPAZA upcoming collection — coming soon"
+      className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10 lg:py-32"
+    >
+      <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p className="eyebrow mb-3">COMING SOON</p>
+          <h2 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
+            The next chapter.
+          </h2>
+        </div>
+        <p className="max-w-sm text-sm text-muted-foreground">
+          Four upcoming oversized essentials currently in development.
+        </p>
+      </div>
+
+      <div
+        ref={reveal.ref}
+        className={`${reveal.className} grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4`}
+      >
+        {items.map((it, i) => (
+          <article
+            key={it.name}
+            className="group relative overflow-hidden rounded-sm bg-secondary transition-shadow duration-500 hover:shadow-2xl"
+          >
+            <div className="relative aspect-[4/5] overflow-hidden bg-muted/30">
+              <img
+                src={it.img}
+                alt={it.name}
+                width={900}
+                height={1100}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover grayscale contrast-90 brightness-95 blur-[2px] transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+              />
+              <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-foreground backdrop-blur">
+                COMING SOON
+              </span>
+            </div>
+            <div className="p-5">
+              <a
+                href={`${whatsappUrl.split("?")[0]}?text=${encodeURIComponent(
+                  `Hi ${brandName}, please notify me when the ${it.name} launches.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Notify me when ${it.name} launches`}
+                className="mb-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-foreground/20 bg-background px-4 py-2.5 text-[11px] font-medium tracking-[0.18em] text-foreground uppercase transition-all hover:bg-foreground hover:text-background"
+              >
+                Notify Me
+              </a>
+              <p className="eyebrow">
+                {it.tag} · N°{String(i + 5).padStart(2, "0")}
               </p>
               <h3 className="mt-1 font-display text-xl">{it.name}</h3>
               <p className="mt-2 text-xs text-muted-foreground">{it.note}</p>
@@ -955,7 +1031,7 @@ function Testimonials() {
   const items = [
     {
       quote:
-        "Premium quality and perfect oversized fit. Exactly what I wanted.",
+        "Premium quality and perfect oversized T-shirts.",
       name: "Ankur",
     },
     {
@@ -964,11 +1040,11 @@ function Testimonials() {
     },
     {
       quote: "Minimal design with premium packaging. Worth every rupee.",
-      name: "Shivam",
+      name: "Shivam Mandal",
     },
     {
       quote: "Finally an Indian oversized tee brand that feels truly premium.",
-      name: "Priyanshu",
+      name: "Kshitiz Gupta",
     },
   ];
   return (
@@ -1350,11 +1426,11 @@ function Gallery() {
           {tiles.map((src, i) => (
             <a
               key={i}
-              href={instagramUrl}
+              href="https://www.flipkart.com/alpaza-solid-men-round-neck-white-t-shirt/p/itm2dc831f7c71f9?pid=TSHHRE86VYEYCG8H&marketplace=FLIPKART&lid=LSTTSHHRE86VYEYCG8HFAGYJC&pageUID=1790492603194"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative block aspect-square w-full overflow-hidden rounded-sm bg-background"
-              aria-label={`View ALPAZA on Instagram — image ${i + 1}`}
+              aria-label={`View ALPAZA on Flipkart — image ${i + 1}`}
             >
               <img
                 src={src}
@@ -1382,110 +1458,50 @@ function Footer() {
       aria-label="ALPAZA site footer"
       className="border-t border-border bg-background"
     >
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10 lg:py-24">
+        <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-center">
           <div>
             <img
               src={logo}
-              alt={`${brandName} — premium oversized T-shirts made in India`}
-              width={200}
-              height={24}
-              className="object-contain"
+              alt={`${brandName} logo`}
+              width={160}
+              height={28}
+              className="h-7 w-auto object-contain"
             />
-            <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              <b>Made for the Move.</b> Premium oversized essentials crafted for
-              everyday comfort, timeless style, and exceptional quality.
+            <p className="mt-4 font-display text-lg tracking-tight text-foreground">
+              {tagline}.
             </p>
-            <div className="mt-6 flex gap-2">
-              <a
-                href={instagramUrl}
-                aria-label={`Follow ${brandName} on Instagram`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="grid h-10 w-10 place-items-center rounded-full border border-border transition-colors hover:bg-foreground hover:text-background"
-              >
-                <Instagram className="h-4 w-4" aria-hidden="true" />
-              </a>
-              <a
-                href={whatsappUrl}
-                aria-label={`Order ${brandName} via WhatsApp`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="grid h-10 w-10 place-items-center rounded-full border border-border transition-colors hover:bg-foreground hover:text-background"
-              >
-                <MessageCircle className="h-4 w-4" aria-hidden="true" />
-              </a>
-            </div>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Premium oversized essentials crafted in India.
+            </p>
           </div>
-          <FooterCol
-            title="Explore"
-            links={[
-              ["Collection", "#collection"],
-              ["About", "#about"],
-              ["Fabric", "#fabric"],
-            ]}
-          />
-          <FooterCol
-            title="Support"
-            links={[
-              ["FAQ", "#faq"],
-              ["Contact", "#contact"],
-              ["Shipping", "#faq"],
-            ]}
-          />
-          <FooterCol
-            title="Order"
-            links={[
-              ["Instagram", instagramUrl],
-              ["WhatsApp", whatsappUrl],
-            ]}
-          />
-        </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
-          <p suppressHydrationWarning>
-            © {CURRENT_YEAR} {brandName}. All rights reserved.
-          </p>
-          <p className="tracking-[0.25em] uppercase">
-            Designed by{" "}
+          <div className="flex items-center gap-3">
             <a
-              href="https://www.crowcent.com"
+              href={instagramUrl}
+              aria-label={`Follow ${brandName} on Instagram`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground transition-colors hover:opacity-70"
+              className="grid h-11 w-11 place-items-center rounded-full border border-border text-foreground transition-colors hover:bg-foreground hover:text-background"
             >
-              CROWCENT
+              <Instagram className="h-4 w-4" aria-hidden="true" />
             </a>
+            <a
+              href={whatsappUrl}
+              aria-label={`Order ${brandName} via WhatsApp`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="grid h-11 w-11 place-items-center rounded-full border border-border text-foreground transition-colors hover:bg-foreground hover:text-background"
+            >
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+        <div className="mt-20 border-t border-border/60 pt-8 text-center">
+          <p className="text-xs text-muted-foreground tracking-[0.25em] uppercase">
+            © 2026 {brandName}
           </p>
         </div>
       </div>
     </footer>
-  );
-}
-
-function FooterCol({
-  title,
-  links,
-}: {
-  title: string;
-  links: readonly (readonly [string, string])[];
-}) {
-  return (
-    <div>
-      <p className="eyebrow mb-4">{title}</p>
-      <ul className="space-y-2 text-sm">
-        {links.map(([l, h]) => (
-          <li key={l}>
-            <a
-              href={h}
-              target={h.startsWith("http") ? "_blank" : undefined}
-              rel={h.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="text-foreground/80 transition-colors hover:text-foreground"
-            >
-              {l}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }
