@@ -1,31 +1,12 @@
-# ALPAZA — robots.txt
-# https://www.alpaza.in
-
 User-agent: *
 Allow: /
-Sitemap: https://www.alpaza.in/sitemap.xml
 
-# AI Crawlers — Allow all
-User-agent: GPTBot
-Allow: /
+# Block private/non-indexable areas
+Disallow: /checkout
+Disallow: /cart
+Disallow: /account
+Disallow: /login
+Disallow: /admin
+Disallow: /api
 
-User-agent: Google-Extended
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: Omgilibot
-Allow: /
-
-User-agent: FacebookBot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
+Sitemap: https://alpaza.in/sitemap.xml

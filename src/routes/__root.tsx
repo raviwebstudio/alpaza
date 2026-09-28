@@ -129,6 +129,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           crossOrigin: "anonymous",
         },
         // DNS prefetch for external links
+        { rel: "dns-prefetch", href: "https://www.googletagmanager.com" },
         { rel: "dns-prefetch", href: "https://www.instagram.com" },
         { rel: "dns-prefetch", href: "https://wa.me" },
         {
@@ -149,6 +150,19 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en-IN">
       <head>
         <HeadContent />
+        {/* Google tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-8W8PV0D6N1"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-8W8PV0D6N1');`,
+          }}
+        />
         {/* Meta Pixel Code */}
         <script
           dangerouslySetInnerHTML={{

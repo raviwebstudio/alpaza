@@ -44,8 +44,51 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+const ROBOTS_TXT = `User-agent: *
+Allow: /
+
+# Block private/non-indexable areas
+Disallow: /checkout
+Disallow: /cart
+Disallow: /account
+Disallow: /login
+Disallow: /admin
+Disallow: /api
+
+Sitemap: https://alpaza.in/sitemap.xml
+`;
+
+const SITEMAP_XML = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://alpaza.in/</loc>
+    <lastmod>2026-09-27</lastmod>
+  </url>
+</urlset>
+`;
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const url = new URL(request.url);
+    if (url.pathname === "/robots.txt") {
+      return new Response(ROBOTS_TXT, {
+        status: 200,
+        headers: {
+          "content-type": "text/plain; charset=utf-8",
+          "cache-control": "public, max-age=86400",
+        },
+      });
+    }
+    if (url.pathname === "/sitemap.xml") {
+      return new Response(SITEMAP_XML, {
+        status: 200,
+        headers: {
+          "content-type": "application/xml; charset=utf-8",
+          "cache-control": "public, max-age=86400",
+        },
+      });
+    }
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
