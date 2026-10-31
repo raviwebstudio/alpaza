@@ -32,6 +32,10 @@ import csBlack from "@/assets/01-black-tee.png";
 import csWhite from "@/assets/02-white-tee.png";
 import csGreen from "@/assets/03-green-tee.png";
 import csMaroon from "@/assets/04-maroon-tee.png";
+import combo1 from "@/assets/Combo-01.webp";
+import combo2 from "@/assets/Combo-02.webp";
+import combo3 from "@/assets/Combo-03.webp";
+import combo4 from "@/assets/Combo-04.webp";
 import fabricImg from "@/assets/fabric.webp";
 import logo from "@/assets/logo.png";
 import bannerBgImage from "@/assets/bg-image.webp";
@@ -408,6 +412,7 @@ function LandingPage() {
         <Hero />
         <Marquee />
         <Collection />
+        <ComboCollection />
         <About />
         <ComingSoon />
         <BannerShowcase />
@@ -684,7 +689,7 @@ function Collection() {
     <section
       id="collection"
       aria-label="ALPAZA featured collection — premium oversized T-shirts"
-      className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10 lg:py-32"
+      className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-10 lg:pt-32"
     >
       <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
         <div>
@@ -723,6 +728,116 @@ function Collection() {
                 className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
               />
               <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-foreground backdrop-blur">
+                {it.badge}
+              </span>
+            </div>
+            <div className="p-5">
+              <a
+                href={it.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Order ${it.name}`}
+                className="mb-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-foreground/20 bg-background px-4 py-2.5 text-[11px] font-medium tracking-[0.18em] text-foreground uppercase transition-all hover:bg-foreground hover:text-background"
+              >
+                Order
+              </a>
+              <p className="eyebrow">
+                {it.tag} · N°{String(i + 1).padStart(2, "0")}
+              </p>
+              <h3 className="mt-1 font-display text-xl">{it.name}</h3>
+              <p className="mt-2 text-xs text-muted-foreground">{it.note}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Combo Collection ---------- */
+
+const comboItems = [
+  {
+    img: combo1,
+    name: "Black + White Combo",
+    tag: "COMBO",
+    note: "2 × 100% Premium Cotton Tees",
+    badge: "BEST VALUE",
+    link: "https://www.flipkart.com/alpaza-solid-men-round-neck-black-white-t-shirt/p/itmfbb1ae693516b?pid=TSHHS6JJPHFFAGRG",
+  },
+  {
+    img: combo2,
+    name: "Black + Maroon Combo",
+    tag: "COMBO",
+    note: "2 × 100% Premium Cotton Tees",
+    badge: "POPULAR",
+    link: "https://www.flipkart.com/alpaza-solid-men-round-neck-black-maroon-t-shirt/p/itmadafdc1c11af7?pid=TSHHS7GBZZVYRUHN&marketplace=FLIPKART&lid=LSTTSHHS7GBZZVYRUHNCCGVUE&swatchAttr=size&pageUID=1793458117185",
+  },
+  {
+    img: combo3,
+    name: "Black + Green Combo",
+    tag: "COMBO",
+    note: "2 × 100% Premium Cotton Tees",
+    badge: "CURATED",
+    link: "https://www.flipkart.com/alpaza-solid-men-round-neck-black-dark-green-t-shirt/p/itm570a68acccfc7?pid=TSHHS7GUQBH9MZSP&marketplace=FLIPKART&lid=LSTTSHHS7GUQBH9MZSPOMYXHV&pageUID=1793458117185",
+  },
+  {
+    img: combo4,
+    name: "White + Green Combo",
+    tag: "COMBO",
+    note: "2 × 100% Premium Cotton Tees",
+    badge: "FRESH PICK",
+    link: "https://www.flipkart.com/alpaza-solid-men-round-neck-white-dark-green-t-shirt/p/itm620af946de23f?pid=TSHHS8QJFA7SCN9F&marketplace=FLIPKART&lid=LSTTSHHS8QJFA7SCN9FB3H0TW&pageUID=1793458117185",
+  },
+];
+
+function ComboCollection() {
+  const reveal = useReveal();
+
+  return (
+    <section
+      id="combo-collection"
+      aria-label="ALPAZA combo collection — T-shirt combinations"
+      className="mx-auto max-w-7xl pb-4 pb-24 sm:px-6 lg:px-10 lg:pb-32 lg:pt-12"
+    >
+      {/* <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p className="eyebrow mb-3">THE COMBO EDIT · 2026</p>
+          <h2 className="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
+            More to wear, 
+            <br />
+            <span className="italic text-muted-foreground">
+              better together.
+            </span>
+          </h2>
+        </div>
+        <p className="max-w-sm text-sm text-muted-foreground">
+          Curated T-shirt combinations. Four considered essentials, brought
+          together for everyday versatility.
+        </p>
+      </div> */}
+
+      <div
+        ref={reveal.ref}
+        className={`${reveal.className} grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4`}
+      >
+        {comboItems.map((it, i) => (
+          <article
+            key={it.name}
+            className="group relative overflow-hidden rounded-sm bg-secondary transition-shadow duration-500 hover:shadow-2xl"
+          >
+            {/* Combo product image */}
+            <div className="relative aspect-[4/5] overflow-hidden">
+              <img
+                src={it.img}
+                alt={it.name}
+                width={900}
+                height={1100}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+              />
+              <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-foreground backdrop-blur z-20">
                 {it.badge}
               </span>
             </div>
