@@ -32,6 +32,7 @@ import csBlack from "@/assets/01-black-tee.png";
 import csWhite from "@/assets/02-white-tee.png";
 import csGreen from "@/assets/03-green-tee.png";
 import csMaroon from "@/assets/04-maroon-tee.png";
+import comingSoonImg from "@/assets/coming-soon.jpeg";
 import combo1 from "@/assets/Combo-01.webp";
 import combo2 from "@/assets/Combo-02.webp";
 import combo3 from "@/assets/Combo-03.webp";
@@ -869,25 +870,25 @@ function ComboCollection() {
 function ComingSoon() {
   const items = [
     {
-      img: csBlack,
+      img: comingSoonImg,
       name: "Sand Beige Oversized Tee",
       tag: "EDITION",
       note: "100% Premium Cotton · In Development",
     },
     {
-      img: csWhite,
+      img: comingSoonImg,
       name: "Charcoal Grey Oversized Tee",
       tag: "EDITION",
       note: "100% Premium Cotton · In Development",
     },
     {
-      img: csGreen,
+      img: comingSoonImg,
       name: "Navy Blue Oversized Tee",
       tag: "EDITION",
       note: "100% Premium Cotton · In Development",
     },
     {
-      img: csMaroon,
+      img: comingSoonImg,
       name: "Stone Brown Oversized Tee",
       tag: "EDITION",
       note: "100% Premium Cotton · In Development",
