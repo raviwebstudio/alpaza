@@ -871,25 +871,25 @@ function ComingSoon() {
   const items = [
     {
       img: comingSoonImg,
-      name: "Sand Beige Oversized Tee",
+      name: "Sand Beige Oversized Hoodie",
       tag: "EDITION",
       note: "100% Premium Cotton · In Development",
     },
     {
       img: comingSoonImg,
-      name: "Charcoal Grey Oversized Tee",
+      name: "Charcoal Grey Oversized Hoodie",
       tag: "EDITION",
       note: "100% Premium Cotton · In Development",
     },
     {
       img: comingSoonImg,
-      name: "Navy Blue Oversized Tee",
+      name: "Navy Blue Oversized Hoodie",
       tag: "EDITION",
       note: "100% Premium Cotton · In Development",
     },
     {
       img: comingSoonImg,
-      name: "Stone Brown Oversized Tee",
+      name: "Stone Brown Oversized Hoodie",
       tag: "EDITION",
       note: "100% Premium Cotton · In Development",
     },
