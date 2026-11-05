@@ -800,7 +800,7 @@ function ComboCollection() {
     <section
       id="combo-collection"
       aria-label="ALPAZA combo collection — T-shirt combinations"
-      className="mx-auto max-w-7xl pb-4 pb-24 sm:px-6 lg:px-10 lg:pb-32 lg:pt-12"
+      className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-10 lg:pb-32 lg:pt-12"
     >
       {/* <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
         <div>
@@ -821,7 +821,7 @@ function ComboCollection() {
 
       <div
         ref={reveal.ref}
-        className={`${reveal.className} grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4`}
+        className={`${reveal.className} mx-auto max-w-md sm:max-w-none grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4`}
       >
         {comboItems.map((it, i) => (
           <article
@@ -829,7 +829,7 @@ function ComboCollection() {
             className="group relative overflow-hidden rounded-sm bg-secondary transition-shadow duration-500 hover:shadow-2xl"
           >
             {/* Combo product image */}
-            <div className="relative aspect-[4/5] overflow-hidden">
+            <div className="relative aspect-[4/3.8] sm:aspect-[4/5] overflow-hidden">
               <img
                 src={it.img}
                 alt={it.name}
@@ -837,27 +837,27 @@ function ComboCollection() {
                 height={1100}
                 loading="lazy"
                 decoding="async"
-                className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+                className="h-full w-full object-cover object-top sm:object-center transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
               />
-              <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-foreground backdrop-blur z-20">
+              <span className="absolute left-3 top-3 sm:left-4 sm:top-4 rounded-full bg-background/90 px-2.5 py-0.5 text-[9px] sm:px-3 sm:py-1 sm:text-[10px] uppercase tracking-[0.22em] text-foreground backdrop-blur z-20">
                 {it.badge}
               </span>
             </div>
-            <div className="p-5">
+            <div className="p-4 sm:p-5">
               <a
                 href={it.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Order ${it.name}`}
-                className="mb-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-foreground/20 bg-background px-4 py-2.5 text-[11px] font-medium tracking-[0.18em] text-foreground uppercase transition-all hover:bg-foreground hover:text-background"
+                className="mb-4 sm:mb-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-foreground/20 bg-background px-4 py-2 sm:py-2.5 text-[11px] font-medium tracking-[0.18em] text-foreground uppercase transition-all hover:bg-foreground hover:text-background"
               >
                 Order
               </a>
-              <p className="eyebrow">
+              <p className="eyebrow text-[10px] sm:text-xs">
                 {it.tag} · N°{String(i + 1).padStart(2, "0")}
               </p>
-              <h3 className="mt-1 font-display text-xl">{it.name}</h3>
-              <p className="mt-2 text-xs text-muted-foreground">{it.note}</p>
+              <h3 className="mt-1 font-display text-lg sm:text-xl">{it.name}</h3>
+              <p className="mt-1.5 sm:mt-2 text-xs text-muted-foreground">{it.note}</p>
             </div>
           </article>
         ))}
