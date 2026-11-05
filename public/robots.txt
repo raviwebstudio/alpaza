@@ -1,12 +1,43 @@
+# robots.txt for ALPAZA — https://www.alpaza.in
+# Allow legitimate search crawlers and AI assistants
+
 User-agent: *
 Allow: /
+Allow: /privacy-policy
+Allow: /terms-and-conditions
+Allow: /exchange-policy
+Allow: /return-policy
+Allow: /llms.txt
 
-# Block private/non-indexable areas
+# Block private, transactional, and administrative areas
 Disallow: /checkout
 Disallow: /cart
 Disallow: /account
 Disallow: /login
 Disallow: /admin
-Disallow: /api
+Disallow: /api/
 
-Sitemap: https://alpaza.in/sitemap.xml
+# Explicit permissions for major search engines and discovery agents
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Reference Sitemap
+Sitemap: https://www.alpaza.in/sitemap.xml

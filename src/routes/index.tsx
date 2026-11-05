@@ -115,6 +115,7 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
     ],
     links: [
+      { rel: "canonical", href: siteUrl },
       // Preload the LCP hero image for faster rendering
       {
         rel: "preload",
