@@ -148,17 +148,16 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en-IN">
       <head>
         <HeadContent />
-        {/* Google tag (gtag.js) */}
+        {/* Google Tag Manager */}
         <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-8W8PV0D6N1"
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NTB299NR"
         />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-8W8PV0D6N1');`,
+gtag('js', new Date());`,
           }}
         />
         {/* Meta Pixel Code */}
@@ -191,6 +190,16 @@ fbq('track', 'PageView');`,
         itemScope
         itemType="https://schema.org/WebPage"
       >
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-NTB299NR"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
         {children}
         <Scripts />
       </body>

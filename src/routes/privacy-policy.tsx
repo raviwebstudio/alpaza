@@ -238,7 +238,7 @@ function PrivacyPolicyPage() {
             rendering, and theme consistency.
           </li>
           <li>
-            <strong>Analytics Tools:</strong> Google Tag Manager (G-8W8PV0D6N1) is deployed to
+            <strong>Analytics Tools:</strong> Google Tag Manager (GTM-NTB299NR) is deployed to
             understand aggregated browsing patterns and optimize loading speeds.
           </li>
           <li>
