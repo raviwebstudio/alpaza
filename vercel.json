@@ -58,6 +58,33 @@
   ],
   "routes": [
     {
+      "src": "/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "x-forwarded-proto",
+          "value": "http"
+        }
+      ],
+      "headers": {
+        "Location": "https://www.alpaza.in/$1"
+      },
+      "status": 302
+    },
+    {
+      "src": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "alpaza.in"
+        }
+      ],
+      "headers": {
+        "Location": "https://www.alpaza.in/$1"
+      },
+      "status": 302
+    },
+    {
       "src": "/assets/(.*)",
       "dest": "/assets/$1"
     },

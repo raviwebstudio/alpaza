@@ -198,6 +198,25 @@ ALPAZA (https://www.alpaza.in) is an Indian premium streetwear and essentials br
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     const url = new URL(request.url);
+    const proto = request.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
+    const rawHost = request.headers.get("x-forwarded-host") || url.hostname || "";
+    const host = rawHost.split(":")[0];
+    const isLocal = host === "localhost" || host === "127.0.0.1" || host.endsWith(".local");
+
+    // 302 redirect HTTP to HTTPS www, or non-www to www
+    if (!isLocal && (proto === "http" || host === "alpaza.in")) {
+      const destination = new URL(request.url);
+      destination.protocol = "https:";
+      destination.hostname = "www.alpaza.in";
+      destination.port = "";
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: destination.toString(),
+        },
+      });
+    }
+
     if (url.pathname === "/robots.txt") {
       return new Response(ROBOTS_TXT, {
         status: 200,

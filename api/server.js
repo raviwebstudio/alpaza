@@ -32,12 +32,24 @@ async function getHandler() {
 }
 
 export default async function handler(req, res) {
+  // Check protocol and host for HTTP -> HTTPS www 302 redirect
+  const proto = req.headers["x-forwarded-proto"] || "https";
+  const rawHost = req.headers["x-forwarded-host"] || req.headers.host || "";
+  const host = rawHost.split(":")[0];
+  const isLocal = host === "localhost" || host === "127.0.0.1" || host.endsWith(".local");
+
+  if (!isLocal && (proto === "http" || host === "alpaza.in")) {
+    const redirectUrl = `https://www.alpaza.in${req.url}`;
+    res.statusCode = 302;
+    res.setHeader("Location", redirectUrl);
+    res.end();
+    return;
+  }
+
   const server = await getHandler();
 
   // Build absolute URL (Vercel passes host in headers)
-  const proto = req.headers["x-forwarded-proto"] || "https";
-  const host = req.headers["x-forwarded-host"] || req.headers.host;
-  const url = `${proto}://${host}${req.url}`;
+  const url = `${proto}://${rawHost || host}${req.url}`;
 
   // Convert Node IncomingMessage headers → Web Headers
   const webHeaders = new Headers();
