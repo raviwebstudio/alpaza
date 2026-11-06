@@ -821,7 +821,7 @@ function ComboCollection() {
 
       <div
         ref={reveal.ref}
-        className={`${reveal.className} mx-auto max-w-md sm:max-w-none grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4`}
+        className={`${reveal.className} pt-5 mx-auto max-w-md sm:max-w-none grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4`}
       >
         {comboItems.map((it, i) => (
           <article
@@ -829,7 +829,7 @@ function ComboCollection() {
             className="group relative overflow-hidden rounded-sm bg-secondary transition-shadow duration-500 hover:shadow-2xl"
           >
             {/* Combo product image */}
-            <div className="relative aspect-[4/3.8] sm:aspect-[4/5] overflow-hidden">
+            <div className="relative aspect-[4/5] overflow-hidden">
               <img
                 src={it.img}
                 alt={it.name}
@@ -837,7 +837,7 @@ function ComboCollection() {
                 height={1100}
                 loading="lazy"
                 decoding="async"
-                className="h-full w-full object-cover object-top sm:object-center transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+                className="h-full w-full object-cover object-[center_20%] sm:object-center transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
               />
               <span className="absolute left-3 top-3 sm:left-4 sm:top-4 rounded-full bg-background/90 px-2.5 py-0.5 text-[9px] sm:px-3 sm:py-1 sm:text-[10px] uppercase tracking-[0.22em] text-foreground backdrop-blur z-20">
                 {it.badge}
